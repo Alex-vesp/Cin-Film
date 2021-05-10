@@ -19,8 +19,13 @@
   "homepage": "https://github.com/Alex-vesp/CineFilm#readme",
   "dependencies": {
     "better-sqlite3": "^7.3.1",
+    "body-parser": "^1.19.0",
+    "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "mustache-express": "^1.3.0"
   }
 }
