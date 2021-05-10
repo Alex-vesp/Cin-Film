@@ -10,9 +10,8 @@ window.onclick = function (event) {
         console.log(event.target);
         document.getElementById("myFormInscr").style.display = "none";
     }
-
-
 };
+
 function openFormConnec() {
     document.getElementById("myFormConnec").style.display = "block";
 }
