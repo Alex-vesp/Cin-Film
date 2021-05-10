@@ -1,0 +1,26 @@
+{
+  "name": "cinefilm",
+  "version": "1.0.0",
+  "description": "Le projet cinefilm permet de decouvrir ou redecouvrir tous les films, les noter et leur ajouter des critiques dans un espace communautaire",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex-vesp/CineFilm.git"
+  },
+  "author": "Ben-Zakour, Bert, Poncy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex-vesp/CineFilm/issues"
+  },
+  "homepage": "https://github.com/Alex-vesp/CineFilm#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.3.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "sqlite3": "^5.0.2"
+  }
+}
