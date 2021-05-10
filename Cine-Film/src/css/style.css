@@ -33,18 +33,19 @@ margin-left: 7%;
     z-index: 9;
 }
 
-.form-popup2 {
-    display: none;
-    position: fixed;
-    bottom: 25%;
-    right: 38%;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-}
 
-/* Add styles to the form container */
+
+
+/* PAS TOUCHER */
 .form-container {
     max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+.form-container-inscr {
+    width: max-content;
+    max-width: max-content;
     padding: 10px;
     background-color: white;
 }
@@ -68,6 +69,7 @@ margin-left: 7%;
 .form-container .btn {
     background-color: #56baed;
     color: white;
+    position: center;
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -83,5 +85,52 @@ margin-left: 7%;
 
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+/* FORM INSCR */
+.form-popup-inscr {
+    display: block;
+    position: fixed;
+    bottom: 8%;
+    left: 5%;
+    z-index: 9;
+}
+
+
+/* Full-width input fields */
+.form-container-inscr input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container-inscr input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container-inscr .btn {
+    background-color: #56baed;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container-inscr .cancel {
+    background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container-inscr .btn:hover, .open-button:hover {
     opacity: 1;
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
     <script src="http://code.jquery.com/jquery-3.4.0.js"></script>
-    <script type="text/javascript" src="Javascript/js.js"></script>
+    <script type="text/javascript" src="Javascript/javascript.js"></script>
     <meta charset="UTF-8">
     <title>CineFilm</title>
 </head>
@@ -14,13 +14,15 @@
 <header class="p-3 bg-dark text-white fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center ">
-            <a href="#" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="#" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
                 <h1 class="bi me-2">CineFilm</h1>
             </a>
             <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
-                <li><a id="liste" href="#" class="nav-link px-2 text-white" >Mes Listes</a></li>
-                <li><a href="#" class="nav-link px-2 text-white" >Suggestions</a></li>
-                <li><a href="#" class="nav-link px-2 text-white" >Mon Profil</a></li>
+                <li><a href="#" onclick="openListes()" id="liste" class="nav-link px-2 text-white" hidden>Mes Listes</a></li>
+                <li><a href="#" onclick="openSuggestions()" id="suggestions" class="nav-link px-2 text-white" hidden>Suggestions</a></li>
+                <li><a href="#" onclick="openProfil()" id="profil" class="nav-link px-2 text-white" hidden>Mon Profil</a></li>
+                <li><a href="#" onclick="userGetConnected()" class="nav-link px-2 text-white" >Test Connecté</a></li>
+                <li><a href="#" onclick="userGetDisconnected()" class="nav-link px-2 text-white" >Test Deconnecté</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -28,9 +30,9 @@
             </form>
 
             <div class="text-end">
-                <button id="inscription" onclick="openFormInscr()" type="button" class="btn btn-outline-light me-2">S'inscrire</button>
+                <button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button>
                 <button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter</button>
-                <button id="deconnection" type="button" class="btn btn-outline-light me-2" hidden>Se deconnecter</button>
+                <button id="deconnection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2" hidden>Se deconnecter</button>
             </div>
         </div>
     </div>
@@ -38,7 +40,7 @@
 <div style="margin-top: 100px"></div>
 
 <!--Menu Tri-->
-<div class="container px-4" style="margin-top: 5px">
+<div id="tri" class="container px-4" style="margin-top: 5px" hidden>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <p class="navbar-brand">Trier</p>
@@ -121,7 +123,7 @@
 
 
 <!--Affichage Films-->
-<div class="album py-5 bg-light">
+<div id="film" class="album py-5 bg-light">
     <p class="fs-1 text-center">Les Films</p>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -133,7 +135,7 @@
                         <p class="card-text"> Description </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button>
+                                <button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button>
                             </div>
                             <p class="text">7.4 <img src="images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
                         </div>
@@ -145,7 +147,7 @@
 </div>
 
 <!--Listes -->
-<div class="album py-5 bg-light">
+<div id="listes" class="album py-5 bg-light" hidden>
     <p class="fs-1 text-center">Mes listes</p>
     <div class="container px-4" style="margin-top: 5px">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -181,10 +183,11 @@
     </div>
 </div>
 
-<!--Page Film-->
-<p class="fs-1 text-center">Titre</p>
+<!--Page Film Individuel-->
 
-<div class="container">
+
+<div id="filmIndividuel" class="container" hidden>
+    <p  class="fs-1 text-center">Titre</p>
     <div class="row justify-content-md-left">
         <div class="col-md-auto">
             <h6>Titre :</h6>
@@ -235,6 +238,34 @@
     </div>
 </div>
 
+
+<!-- Affichage Suggestions -->
+
+<div id="suggestion" class="album py-5 bg-light" hidden>
+    <p class="fs-1 text-center">Mes suggestions</p>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="Placeholder: Film" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="rgb(33,37,41)"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Titre</text></svg>
+
+                    <div class="card-body">
+                        <p class="card-text"> Description </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button>
+                            </div>
+                            <p class="text">7.4 <img src="images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- POPUP BOUTONS CONNECTION -->
 
 <div style="background-color: white" class="form-popup" id="myFormConnec" >
@@ -262,24 +293,36 @@
 </div>
 
 
-<!-- POPUP BOUTONS INSCRPTION -->
+<!-- POPUP BOUTONS INSCIRPTION -->
 
-<div style="background-color: white" class="form-popup2" id="myFormInscr" >
-    <button style=" border-color: white; background-color: white; border-style: hidden; position: absolute; top: 2px; right: 2px; font-size: 22px;" onclick="closeFormInscr()"  aria-label="Dismiss alert" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <form  id="formInscr" class="form-container">
+<div style="background-color: white" class="form-popup-inscr" id="myFormInscr" hidden>
+    <form  id="formInscr" class="form-container-inscr">
         <br>
         <h1 id="s'inscrire">S'inscrire</h1>
         <br>
+
+        <label for="surname"><b>Nom de famille</b></label>
+        <input id="surname" minlength="3" type="text" placeholder="Renseignez votre nom" name="psw" required>
+
+        <label for="name"><b>Prénom</b></label>
+        <input id="name" minlength="3" type="text" placeholder="Renseignez votre prénom" name="psw" required>
+
+        <label for="birthdate"><b>Date de naissance</b></label>
+        <br>
+        <input id="birthdate"  type="date" placeholder="Renseignez votre date de naissance" name="psw" required>
+
+        <br><br>
+
+
         <label for="username"><b>Nom d'utilisateur</b></label>
-        <input id="usernameInscr" type="text" placeholder="Créez votre nom d'utlisateur" name="username" required>
+        <input id="usernameInscr" minlength="3" type="text" placeholder="Créez votre nom d'utlisateur" name="username" required>
 
         <label for="email"><b>Adresse email</b></label>
         <input id="emailInscr" type="text" placeholder="Renseignez une adresse email" name="email" required>
 
         <label for="psw"><b>Mot de passe</b></label>
-        <input id="pswInscr" minlength="8" type="password" placeholder="Créez votre mot de passe" name="psw" required>
+        <br>
+        <input id="pswInscr" minlength="8" type="password" size="60" placeholder="  Créez votre mot de passe" name="psw" required>
 
         <br><br>
 
@@ -306,6 +349,6 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
-<script src="Javascript/js.js"></script>
+<script src="Javascript/javascript.js"></script>
 </body>
 </html>
