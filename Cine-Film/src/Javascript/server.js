@@ -85,7 +85,10 @@ app.get('/search', (req, res) => {
     res.render('search', found);
 });
 
-/* Retourne le contenu d'une recette d'identifiant "id" */
+
+/**Méthodes a utiliser (pour s'inspirer) -> **/
+
+/*
 app.get('/read/:id', (req, res) => {
     var entry = model.read(req.params.id);
     res.render('read', entry);
@@ -105,7 +108,8 @@ app.get('/delete/:id', is_authenticated, (req, res) => {
     res.render('delete', {id: req.params.id, title: entry.title});
 });
 
-/**** Routes pour modifier les données ****/
+
+
 
 // Fonction qui facilite la création d'une recette
 function post_data_to_recipe(req) {
@@ -119,21 +123,10 @@ function post_data_to_recipe(req) {
     };
 }
 
-app.post('/create', is_authenticated, (req, res) => {
-    var id = model.create(post_data_to_recipe(req));
-    res.redirect('/read/' + id);
-});
-
-app.post('/update/:id', is_authenticated, (req, res) => {
-    var id = req.params.id;
-    model.update(id, post_data_to_recipe(req));
-    res.redirect('/read/' + id);
-});
-
 app.post('/delete/:id', is_authenticated, (req, res) => {
     model.delete(req.params.id);
     res.redirect('/');
 });
-
+*/
 app.listen(3000, () => console.log('listening on http://localhost:3000'));
 
