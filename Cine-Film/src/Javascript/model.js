@@ -4,7 +4,7 @@ const Sqlite = require('better-sqlite3');
 
 let db = new Sqlite('db.sqlite');
 
-/* Lire le contenu d'une recette à partir de son identifiant.
+/* Chercher un film à partir de son nom.
 
 Cette fonction prend en argument un identifiant de recette.
 
@@ -18,11 +18,11 @@ Elle renvoie une recette sous la forme d'un objet :
 
 Cette fonction renvoie null si l'identifiant n'existe pas.
  */
-exports.read = (id) => {
-    var found = db.prepare('SELECT * FROM recipe WHERE id = ?').get(id);
+exports.read = (nomFilm) => {
+    var found = db.prepare('SELECT * FROM Film WHERE nomFilm = ?').get(nomFilm);
     if(found !== undefined) {
-        found.ingredients = db.prepare('SELECT name FROM ingredient WHERE recipe = ? ORDER BY rank').all(id);
-        found.stages = db.prepare('SELECT description FROM stage WHERE recipe = ? ORDER BY rank').all(id);
+        found.descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(nomFilm);
+        found.noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(nomFilm);
         return found;
     } else {
         return null;
@@ -98,11 +98,15 @@ exports.update = function(id, recipe) {
 }
 
 /* Fonction pour effacer une recette dans la base à partir de son identifiant */
-exports.delete = function(id) {
-    db.prepare('DELETE FROM recipe WHERE id = ?').run(id);
-    db.prepare('DELETE FROM ingredient WHERE recipe = ?').run(id);
-    db.prepare('DELETE FROM stage WHERE recipe = ?').run(id);
+exports.supprimerFilm = function(id) {
+    db.prepare('DELETE FROM Film WHERE id = ?').run(id);
 }
+/* Fonction pour effacer une recette dans la base à partir de son identifiant */
+exports.supprimerUtilisateur = function(id) {
+    db.prepare('DELETE FROM Utilisateur WHERE id = ?').run(id);
+}
+
+
 
 /* Recherche d'une recette par requête, avec pagination des résultats
 
@@ -118,13 +122,13 @@ Cette fonction retourne un dictionnaire contenant les champs suivants :
 - num_pages: nombre total de pages
 */
 exports.search = (query, page) => {
-    const num_per_page = 32;
+    const num_per_page = 30;
     query = query || "";
     page = parseInt(page || 1);
 
     // on utiliser l'opérateur LIKE pour rechercher dans le titre
-    var num_found = db.prepare('SELECT count(*) FROM recipe WHERE title LIKE ?').get('%' + query + '%')['count(*)'];
-    var results = db.prepare('SELECT id as entry, title, img FROM recipe WHERE title LIKE ? ORDER BY id LIMIT ? OFFSET ?').all('%' + query + '%', num_per_page, (page - 1) * num_per_page);
+    var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
+    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm LIMIT ? OFFSET ?').all('%' + query + '%', num_per_page, (page - 1) * num_per_page);
 
     return {
         results: results,
@@ -138,13 +142,13 @@ exports.search = (query, page) => {
 
 
 exports.login = function(user, password) {
-    var result = db.prepare('SELECT id FROM user WHERE name = ? AND password = ?').get(user, password);
+    var result = db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND mdpUtilisateur = ?').get(user, password);
     if(result === undefined) return -1;
     return result.id;
 }
 
 exports.new_user = function(user, password) {
-    var result = db.prepare('INSERT INTO user (name, password) VALUES (?, ?)').run(user, password);
+    var result = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mdpUtilisateur) VALUES (?, ?)').run(user, password);
     return result.lastInsertRowid;
 }
 

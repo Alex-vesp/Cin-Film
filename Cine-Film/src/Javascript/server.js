@@ -18,14 +18,14 @@ app.use(cookieSession({
 
 app.engine('html', mustache());
 app.set('view engine', 'html');
-app.set('views', './views');
+app.set('views', '../views');
 
 // middleware qui teste si l'utilisateur est authentifié
 function is_authenticated(req, res, next) {
     if(req.session.user !== undefined) {
         return next();
     }
-    res.status(401).send('Authentication required');
+    res.status(401).send('Authentification demandée');
 }
 
 // middleware qui ajoute deux variables de session aux templates : authenticated et le nom de l'utilisateur
@@ -37,18 +37,18 @@ app.use(function(req, res, next) {
     return next();
 });
 
-app.post('/login', (req, res) => {
+app.post('/pageConnexion', (req, res) => {
     const user = model.login(req.body.user, req.body.password);
     if(user != -1) {
         req.session.user = user;
         req.session.name = req.body.user;
         res.redirect('/');
     } else {
-        res.redirect('/login');
+        res.redirect('/pageConnexion');
     }
 });
 
-app.post('/new_user', (req, res) => {
+app.post('/pageInscription', (req, res) => {
     const user = model.new_user(req.body.user, req.body.password);
     if(user != -1) {
         req.session.user = user;
@@ -59,17 +59,17 @@ app.post('/new_user', (req, res) => {
     }
 });
 
-app.get('/logout', (req, res) => {
+app.get('/deconnexion', (req, res) => {
     req.session = null;
     res.redirect('/');
 });
 
-app.get('/login', (req, res) => {
-    res.render('login');
+app.get('/pageConnexion', (req, res) => {
+    res.render('pageConnexion');
 });
 
-app.get('/new_user', (req, res) => {
-    res.render('new_user');
+app.get('/pageInscription', (req, res) => {
+    res.render('pageInscription');
 });
 
 /**** Routes pour voir les pages du site ****/
