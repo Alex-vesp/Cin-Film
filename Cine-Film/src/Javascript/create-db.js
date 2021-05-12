@@ -22,7 +22,7 @@ var load = function() {
     db.prepare('CREATE TABLE A_joue (idFilm INTEGER NOT NULL, idActeur INTEGER NOT NULL, PRIMARY KEY(idFilm, idActeur))').run();
     db.prepare('CREATE TABLE Acteur (idActeur INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, nomActeur varchar(30) NOT NULL, prenomActeur varchar(30) NOT NULL)').run();
     db.prepare('CREATE TABLE Critique (idFilm INTEGER NOT NULL , idUtilisateur INTEGER NOT NULL, message TEXT NOT NULL, date NOT NULL, note NUMERIC NOT NULL CHECK(note BETWEEN 0 and 10), PRIMARY KEY(idFilm, idUtilisateur))').run();
-    db.prepare('CREATE TABLE Film (idFilm INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nomFilm varchar(30) NOT NULL, dateFilm DATE NOT NULL, acteursFilm varchar(255) NOT NULL, realisateursFilm varchar(255) NOT NULL, descriptionFilm TEXT NOT NULL, dureeFilm NUMERIC NOT NULL CHECK(dureeFilm > 0), noteMoyenne NUMERIC NOT NULL CHECK(noteMoyenne BETWEEN 0 and 10) )').run();
+    db.prepare('CREATE TABLE Film (idFilm INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nomFilm varchar(30) NOT NULL, dateFilm DATE NOT NULL, acteursFilm varchar(255) NOT NULL, realisateursFilm varchar(255) NOT NULL, descriptionFilm TEXT NOT NULL, dureeFilm NUMERIC NOT NULL CHECK(dureeFilm > 0), noteMoyenne NUMERIC CHECK(noteMoyenne BETWEEN 0 and 10) )').run();
     db.prepare('CREATE TABLE Film_Utilisateur (idUtilisateur INTEGER NOT NULL, idFilm INTEGER NOT NULL, nomListe varchar(30) NOT NULL, PRIMARY KEY(idUtilisateur, idFilm, nomListe))').run();
     db.prepare('CREATE TABLE Genre (idFilm INTEGER NOT NULL, nomGenre varchar(30) NOT NULL, PRIMARY KEY(idFilm, nomGenre))').run();
     db.prepare('CREATE TABLE Liste (nomListe varchar(30) NOT NULL PRIMARY KEY)').run();

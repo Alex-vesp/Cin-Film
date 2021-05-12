@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
     <script src="http://code.jquery.com/jquery-3.4.0.js"></script>
     <script type="text/javascript" src="../Javascript/javascript.js"></script>
+    <script type="text/javascript" src="../Javascript/model.js"></script>
     <meta charset="UTF-8">
     <title>CineFilm</title>
 </head>
@@ -14,13 +15,15 @@
 <header class="p-3 bg-dark text-white fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center ">
-            <a href="pageConnecte.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="index.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
                 <h1 class="bi me-2">CineFilm</h1>
             </a>
             <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
                 <li><a href="pageListe.html" onclick="openListes()" id="liste" class="nav-link px-2 text-white" hidden>Mes Listes</a></li>
                 <li><a href="pageSuggestions.html" onclick="openSuggestions()" id="suggestions" class="nav-link px-2 text-white" hidden>Suggestions</a></li>
                 <li><a href="pageProfil.html" onclick="openProfil()" id="profil" class="nav-link px-2 text-white" hidden>Mon Profil</a></li>
+                <li><a href="pageConnecte.html" onclick="userGetConnected()" class="nav-link px-2 text-white" >Test Connecté</a></li>
+                <li><a href="index.html" onclick="userGetDisconnected()" class="nav-link px-2 text-white" >Test Deconnecté</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -28,8 +31,8 @@
             </form>
 
             <div class="text-end">
-                <button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button>
-                <button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter</button>
+                <a href="pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
+                <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter</button></a>
             </div>
         </div>
     </div>
@@ -43,18 +46,18 @@
             <form class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label for="pseudoC" class="form-label">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudoC" placeholder="Pseudo" value="" required>
+                        <label for="pseudoConnec" class="form-label">Pseudo</label>
+                        <input type="text" class="form-control" id="pseudoConnec" placeholder="Pseudo" value="" required>
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="mdpC" class="form-label">Mot de passe</label>
-                        <input type="password" class="form-control" id="mdpC" placeholder="mot de passe" value="" required>
+                        <label for="mdpConnec" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="mdpConnec" placeholder="mot de passe" value="" required>
                     </div>
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Se connecter</button>
+                    <button onclick="login(document.getElementById('pseudoConnec').value, document.getElementById('mdpConnec').value)" class="w-100 btn btn-lg btn-outline-dark " type="submit">Se connecter</button>
                 </div>
             </form>
         </div>

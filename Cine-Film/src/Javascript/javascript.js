@@ -34,57 +34,57 @@ function closeFormInscr() {
 */
 //GESTION DES ONGLETS
 
-function home(){
+function home(){/*
     document.getElementById("film").hidden = false;
     document.getElementById("filmIndividuel").hidden = true;
     document.getElementById("listes").hidden = true;
     document.getElementById("suggestion").hidden = true;
-    document.getElementById("myFormInscr").hidden = true;
+    document.getElementById("myFormInscr").hidden = true;*/
 }
 
-function openListes(){
+function openListes(){/*
     document.getElementById("listes").hidden = false;
     document.getElementById("film").hidden = true;
     document.getElementById("suggestion").hidden = true;
     document.getElementById("tri").hidden = true;
     document.getElementById("myFormInscr").hidden = true;
-    document.getElementById("filmIndividuel").hidden = true;
+    document.getElementById("filmIndividuel").hidden = true;*/
 }
 
-function openSuggestions(){
+function openSuggestions(){/*
     document.getElementById("suggestion").hidden = false;
     document.getElementById("tri").hidden = false;
     document.getElementById("listes").hidden = true;
     document.getElementById("film").hidden = true;
     document.getElementById("myFormInscr").hidden = true;
-    document.getElementById("filmIndividuel").hidden = true;
+    document.getElementById("filmIndividuel").hidden = true;*/
 }
 
-function openProfil(){
+function openProfil(){/*
     document.getElementById("suggestion").hidden = true;
     document.getElementById("film").hidden = true;
     document.getElementById("listes").hidden = true;
     document.getElementById("tri").hidden = true;
     document.getElementById("myFormInscr").hidden = true;
-    document.getElementById("filmIndividuel").hidden = true;
+    document.getElementById("filmIndividuel").hidden = true;*/
 }
 
-function openInscription(){
+function openInscription(){/*
     document.getElementById("myFormInscr").hidden = false;
     document.getElementById("film").hidden = true;
     document.getElementById("listes").hidden = true;
     document.getElementById("suggestion").hidden = true;
     document.getElementById("tri").hidden = true;
-    document.getElementById("filmIndividuel").hidden = true;
+    document.getElementById("filmIndividuel").hidden = true;*/
 }
 
-function openFilmIndiv(){
+function openFilmIndiv(){/*
     document.getElementById("filmIndividuel").hidden = false;
     document.getElementById("tri").hidden = true;
     document.getElementById("film").hidden = true;
     document.getElementById("listes").hidden = true;
     document.getElementById("suggestion").hidden = true;
-    document.getElementById("myFormInscr").hidden = true;
+    document.getElementById("myFormInscr").hidden = true;*/
 }
 
 function userGetConnected(){

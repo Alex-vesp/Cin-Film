@@ -1,53 +1,22 @@
 "use strict"
-/* Module de recherche dans une base de recettes de cuisine */
+/* Module de recherche dans une base de données de films */
 const Sqlite = require('better-sqlite3');
 
 let db = new Sqlite('db.sqlite');
 
-/* Chercher un film à partir de son nom.
 
-Cette fonction prend en argument un identifiant de recette.
-
-Elle renvoie une recette sous la forme d'un objet :
-- title: son titre
-- description: la description textuelle de la recette
-- duration: la durée totale de la recette
-- img: l'url de son image
-- ingredients: une liste d'ingrédients (pour chacun il y a un champ name)
-- stages: une liste d'étapes pour la recette (chacune contient un champ description)
-
-Cette fonction renvoie null si l'identifiant n'existe pas.
- */
-exports.read = (nomFilm) => {
-    var found = db.prepare('SELECT * FROM Film WHERE nomFilm = ?').get(nomFilm);
+exports.read = (id) => {
+    var found = db.prepare('SELECT * FROM Film WHERE idFilm = ?').get(id);
     if(found !== undefined) {
-        found.descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(nomFilm);
-        found.noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(nomFilm);
+        found.descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(id);
+        found.noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(id);
         return found;
     } else {
         return null;
     }
 };
 
-/* Fonction pour créer une nouvelle recette dans la base.
 
-Prend en paramètre un objet javascript décrivant la recette sous la forme suivante :
-recipe = {
-  title: 'text',
-  description: 'text',
-  duration: 'text',
-  ingredients: [
-    {name: 'text'},
-    ...
-  ],
-  stages: [
-    {description: 'text'},
-    ...
-  ]
-}
-
-Cette fonction retourne l'identifiant de la recette créée.
-*/
 exports.create = function(recipe) {
     var id = db.prepare('INSERT INTO recipe (title, img, description, duration) VALUES (@title, @img, @description, @duration)').run(recipe).lastInsertRowid;
 
@@ -67,15 +36,9 @@ exports.create = function(recipe) {
     return id;
 }
 
-/* Fonction pour mettre à jour une recette de la base.
 
-Un identifiant de recette doit être passé en premier argument.
-Le second argument est un objet javascript au même format que pour la fonction create.
-
-Cette fonction revoie true si l'identifiant existe dans la base.
-*/
-exports.update = function(id, recipe) {
-    var result = db.prepare('UPDATE recipe SET title = @title, img = @img, description = @description WHERE id = ?').run(recipe, id);
+exports.update = function(id, Film) {
+    var result = db.prepare('UPDATE recipe SET nomFilm = @nomFilm, dateFilm = @dateFilm, acteursFilm = @acteursFilm, realisateursFilm = @realisateursFilm, descriptionFilm = @descriptionFilm, dureeFilm = @dureeFilm,  WHERE idFilm = ?').run(Film, id);
     if(result.changes == 1) {
         var insert1 = db.prepare('INSERT INTO ingredient VALUES (@recipe, @rank, @name)');
         var insert2 = db.prepare('INSERT INTO stage VALUES (@recipe, @rank, @description)');

@@ -14,13 +14,15 @@
 <header class="p-3 bg-dark text-white fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center ">
-            <a href="pageConnecte.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="index.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
                 <h1 class="bi me-2">CineFilm</h1>
             </a>
             <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
-                <li><a href="pageListe.html" onclick="openListes()" id="liste" class="nav-link px-2 text-white">Mes Listes</a></li>
-                <li><a href="pageSuggestions.html" onclick="openSuggestions()" id="suggestions" class="nav-link px-2 text-white">Suggestions</a></li>
-                <li><a href="#" onclick="openProfil()" id="profil" class="nav-link px-2 text-white">Mon Profil</a></li>
+                <li><a href="pageListe.html" onclick="openListes()" id="liste" class="nav-link px-2 text-white" >Mes Listes</a></li>
+                <li><a href="pageSuggestions.html" onclick="openSuggestions()" id="suggestions" class="nav-link px-2 text-white" >Suggestions</a></li>
+                <li><a href="pageProfil.html" onclick="openProfil()" id="profil" class="nav-link px-2 text-white" >Mon Profil</a></li>
+                <li><a href="pageConnecte.html" onclick="userGetConnected()" class="nav-link px-2 text-white" >Test Connecté</a></li>
+                <li><a href="index.html" onclick="userGetDisconnected()" class="nav-link px-2 text-white" >Test Deconnecté</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -65,7 +67,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-dark">Voir cette liste ...</button>
+                                <a href="pageFilmsListe.html"><button type="button" class="btn btn-sm btn-outline-dark">Voir cette liste ...</button></a>
                             </div>
                         </div>
                     </div>
