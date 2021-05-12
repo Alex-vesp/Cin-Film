@@ -16,7 +16,7 @@ exports.read = (id) => {
     }
 };
 
-
+/*
 exports.create = function(recipe) {
     var id = db.prepare('INSERT INTO recipe (title, img, description, duration) VALUES (@title, @img, @description, @duration)').run(recipe).lastInsertRowid;
 
@@ -58,38 +58,24 @@ exports.update = function(id, Film) {
         return true;
     }
     return false;
-}
+}*/
 
-/* Fonction pour effacer une recette dans la base à partir de son identifiant */
+
 exports.supprimerFilm = function(id) {
     db.prepare('DELETE FROM Film WHERE id = ?').run(id);
 }
-/* Fonction pour effacer une recette dans la base à partir de son identifiant */
+
 exports.supprimerUtilisateur = function(id) {
     db.prepare('DELETE FROM Utilisateur WHERE id = ?').run(id);
 }
 
 
 
-/* Recherche d'une recette par requête, avec pagination des résultats
-
-Cette fonction prend en argument la requête sous forme d'une chaîne de caractères
-et le numéro de la page de résultats.
-
-Cette fonction retourne un dictionnaire contenant les champs suivants :
-- results: liste de recettes (version courte contenant l'identifiant de la recette, son titre et l'url de son image)
-- num_found: le nombre de recettes trouvées
-- query: la requête
-- next_page: numero de la page suivante
-- page: numero de la page courante
-- num_pages: nombre total de pages
-*/
 exports.search = (query, page) => {
     const num_per_page = 30;
     query = query || "";
     page = parseInt(page || 1);
 
-    // on utiliser l'opérateur LIKE pour rechercher dans le titre
     var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
     var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm LIMIT ? OFFSET ?').all('%' + query + '%', num_per_page, (page - 1) * num_per_page);
 

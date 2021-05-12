@@ -1,16 +1,14 @@
 "use strict"
-/* Serveur pour le site de recettes */
+/* Serveur pour le site de films */
 var express = require('express');
 var mustache = require('mustache-express');
 
 var model = require('./model');
 var app = express();
 
-// parse form arguments in POST requests
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// setup session handler
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
     secret: 'mot-de-passe-du-cookie',
@@ -20,7 +18,7 @@ app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', '../views');
 
-// middleware qui teste si l'utilisateur est authentifié
+// teste si l'utilisateur est authentifié
 function is_authenticated(req, res, next) {
     if(req.session.user !== undefined) {
         return next();
@@ -28,7 +26,7 @@ function is_authenticated(req, res, next) {
     res.status(401).send('Authentification demandée');
 }
 
-// middleware qui ajoute deux variables de session aux templates : authenticated et le nom de l'utilisateur
+// ajoute deux variables de session aux templates : authenticated et le nom de l'utilisateur
 app.use(function(req, res, next) {
     if(req.session.user !== undefined) {
         res.locals.authenticated = true;
@@ -74,12 +72,10 @@ app.get('/pageInscription', (req, res) => {
 
 /**** Routes pour voir les pages du site ****/
 
-/* Retourne une page principale avec le nombre de recettes */
 app.get('/', (req, res) => {
     res.render('index');
 });
 
-/* Retourne les résultats de la recherche à partir de la requête "query" */
 app.get('/search', (req, res) => {
     var found = model.search(req.query.query, req.query.page);
     res.render('search', found);
@@ -111,7 +107,6 @@ app.get('/delete/:id', is_authenticated, (req, res) => {
 
 
 
-// Fonction qui facilite la création d'une recette
 function post_data_to_recipe(req) {
     return {
         title: req.body.title,
