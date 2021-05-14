@@ -6,17 +6,24 @@ var mustache = require('mustache-express');
 var model = require('./model');
 var app = express();
 
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const cookieSession = require('cookie-session');
+const path = require("path");
 app.use(cookieSession({
     secret: 'mot-de-passe-du-cookie',
 }));
 
+
+app.use(express.static(path.join(__dirname, '/public')));
+
 app.engine('html', mustache());
 app.set('view engine', 'html');
-app.set('views', '../views');
+app.set('views', 'public/views');
+
+
 
 // teste si l'utilisateur est authentifié
 function is_authenticated(req, res, next) {
@@ -57,29 +64,59 @@ app.post('/pageInscription', (req, res) => {
     }
 });
 
-app.get('/deconnexion', (req, res) => {
-    req.session = null;
-    res.redirect('/');
-});
-
-app.get('/pageConnexion', (req, res) => {
-    res.render('pageConnexion');
-});
-
-app.get('/pageInscription', (req, res) => {
-    res.render('pageInscription');
-});
-
-/**** Routes pour voir les pages du site ****/
+/** GET **/
 
 app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/search', (req, res) => {
+app.get('/index.html', (req, res) => {
+    res.render('index');
+});
+
+app.get('/pageConnecte.html', (req, res) => {
+    res.render('pageConnecte');
+});
+
+app.get('/pageConnexion.html', (req, res) => {
+    res.render('pageConnexion');
+});
+
+app.get('/pageFilm.html', (req, res) => {
+    res.render('pageFilm');
+});
+
+app.get('/pageFilmListe.html', (req, res) => {
+    res.render('pageFilmListe');
+});
+
+app.get('/pageInscription.html', (req, res) => {
+    res.render('pageInscription');
+});
+
+app.get('/pageListe.html', (req, res) => {
+    res.render('pageListe');
+});
+
+app.get('/pageProfil.html', (req, res) => {
+    res.render('pageProfil');
+});
+
+app.get('/pageSuggestions.html', (req, res) => {
+    res.render('pageSuggestions');
+});
+
+/*app.get('/search', (req, res) => {
     var found = model.search(req.query.query, req.query.page);
     res.render('search', found);
-});
+});*/
+
+/**** Routes pour voir les pages du site ****/
+
+
+
+
+
 
 
 /**Méthodes a utiliser (pour s'inspirer) -> **/
