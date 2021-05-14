@@ -1,19 +1,5 @@
 //GESTION DES FORMULAIRES
 
-window.onclick = function (event) {
-    if (event.target != document.getElementById("formConnec") && event.target !=  document.getElementById("connection") &&  event.target !=  document.getElementById("btnSeConnecter") && event.target != document.getElementById("usernameConnec") && event.target != document.getElementById("pswConnec") && event.target != document.getElementById("pswForgotten") && event.target != document.getElementById("seConnecter")){
-        console.log(document.getElementById("formConnec"));
-        console.log(event.target);
-        document.getElementById("myFormConnec").style.display = "none";
-    }
-
-    /*if (event.target != document.getElementById("formInscr") && event.target !=  document.getElementById("inscription") &&  event.target !=  document.getElementById("btnInscription") && event.target != document.getElementById("usernameInscr") && event.target != document.getElementById("emailInscr") && event.target != document.getElementById("pswInscr") && event.target != document.getElementById("s'inscrire") && event.target != document.getElementById("surname") && event.target != document.getElementById("name") && event.target != document.getElementById("birthdate")){
-        console.log(document.getElementById("formInscr"));
-        console.log(event.target);
-        document.getElementById("myFormInscr").style.display = "none";
-    }*/
-
-};
 
 
 function openFormConnec() {

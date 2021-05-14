@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', 'public/views');
+app.set('model', 'model');
 
 
 
@@ -42,32 +43,43 @@ app.use(function(req, res, next) {
     return next();
 });
 
-app.post('/pageConnexion', (req, res) => {
-    const user = model.login(req.body.user, req.body.password);
+
+/** POST **/
+
+
+
+app.post('pageConnexion.html', (req, res) => {
+    res.redirect("index.html");
+    const user = model.login(req.body.pseudoConnec, req.body.mdpConnec);
     if(user != -1) {
         req.session.user = user;
-        req.session.name = req.body.user;
-        res.redirect('/');
+        req.session.name = req.body.pseudoConnec;
+        window.alert(req.session.name);
+        res.redirect('index.html');
+        window.alert(req.session.name);
     } else {
-        res.redirect('/pageConnexion');
+        res.redirect('pageConnexion.html');
     }
 });
 
-app.post('/pageInscription', (req, res) => {
-    const user = model.new_user(req.body.user, req.body.password);
+app.post('/pageInscription.html', (req, res) => {
+    const user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, req.body.genre, req.body.acteur, req.body.realisateur );
     if(user != -1) {
         req.session.user = user;
-        req.session.name = req.body.user;
-        res.redirect('/');
+        req.session.name = req.body.pseudoConnec;
+        window.alert(req.session.name);
+        res.redirect('index.html');
+        window.alert(req.session.name);
     } else {
-        res.redirect('/');
+        res.redirect('/pageInscription.html');
     }
 });
+
 
 /** GET **/
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.redirect('index.html');
 });
 
 app.get('/index.html', (req, res) => {
@@ -81,6 +93,7 @@ app.get('/pageConnecte.html', (req, res) => {
 app.get('/pageConnexion.html', (req, res) => {
     res.render('pageConnexion');
 });
+
 
 app.get('/pageFilm.html', (req, res) => {
     res.render('pageFilm');
@@ -105,6 +118,13 @@ app.get('/pageProfil.html', (req, res) => {
 app.get('/pageSuggestions.html', (req, res) => {
     res.render('pageSuggestions');
 });
+
+app.get('/deconnexion.html', (req, res) => {
+    req.session = null;
+    res.redirect('index.html');
+});
+
+
 
 /*app.get('/search', (req, res) => {
     var found = model.search(req.query.query, req.query.page);
@@ -160,5 +180,5 @@ app.post('/delete/:id', is_authenticated, (req, res) => {
     res.redirect('/');
 });
 */
-app.listen(3000, () => console.log('listening on http://localhost:3000'));
+app.listen(4000, () => console.log('listening on http://localhost:4000'));
 
