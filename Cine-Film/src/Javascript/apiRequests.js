@@ -11,35 +11,20 @@
  https://api.themoviedb.org/3/movie/<movie-id>?api_key=<APIKEY>
  *************/
 
+const fetch = require('node-fetch')
+
 const APIKEY = '45c7524a7adb09538e00b07bff05d4e3';
 let baseURL = 'https://api.themoviedb.org/3/';
 let configData = null;
 let baseImageURL = null;
 let searchURL = 'search/movie?api_key='
 let baseSearchURL = baseURL + searchURL + APIKEY + '&query='
+let changeLanguageToFr = '&language=fr'
 
-let searchFunction = function (keyword){
-    let url = ''.concat(baseSearchURL, keyword)
-    console.log(url)
-}
-
-
-let getConfig = function () {
-    let url = "".concat(baseURL, 'configuration?api_key=', APIKEY);
-    fetch(url)
-        .then((result)=>{
-            return result.json();
-        })
-        .then((data)=>{
-            baseImageURL = data.images.secure_base_url;
-            configData = data.images;
-            console.log('config:', data);
-            console.log('config fetched');
-            runSearch('jaws')
-        })
-        .catch(function(err){
-            alert(err);
-        });
+let movieSearch = function (keyword){
+    let concatenedKeyword = keyword.replace(/ /g, '%20')
+    let url = ''.concat(baseSearchURL, concatenedKeyword, changeLanguageToFr);
+    fetch(url).then(response => response.json()).then(text => console.log(text))
 }
 
 let runSearch = function (keyword) {
@@ -54,7 +39,6 @@ let runSearch = function (keyword) {
         })
 }
 
-searchFunction("jaws");
+movieSearch("les dents")
 //document.addEventListener('DOMContentLoaded', getConfig);
-
 
