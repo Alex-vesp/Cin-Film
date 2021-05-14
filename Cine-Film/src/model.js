@@ -96,8 +96,8 @@ exports.login = function(user, password) {
     return result.id;
 }
 
-exports.new_user = function(user, password) {
-    var result = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mdpUtilisateur) VALUES (?, ?)').run(user, password);
+exports.new_user = function(user, mail, password, nom, prenom, date, genre, acteur, realisateur) {
+    var result = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre, acteur, realisateur);
     return result.lastInsertRowid;
 }
 
