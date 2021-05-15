@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{{> header}}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
-    <script src="http://code.jquery.com/jquery-3.4.0.js"></script>
-    <script type="text/javascript" src="../Javascript/javascript.js"></script>
-    <meta charset="UTF-8">
-    <title>CineFilm</title>
-</head>
-<body>
-<header class="p-3 bg-dark text-white fixed-top">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center ">
-            <a href="index.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
-                <h1 class="bi me-2">CineFilm</h1>
-            </a>
-            <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
-                <li><a href="pageListe.html" onclick="openListes()" id="liste" class="nav-link px-2 text-white" >Mes Listes</a></li>
-                <li><a href="pageSuggestions.html" onclick="openSuggestions()" id="suggestions" class="nav-link px-2 text-white" >Suggestions</a></li>
-                <li><a href="pageProfil.html" onclick="openProfil()" id="profil" class="nav-link px-2 text-white" >Mon Profil</a></li>
-                <li><a href="pageConnecte.html" onclick="userGetConnected()" class="nav-link px-2 text-white" >Test Connecté</a></li>
-                <li><a href="index.html" onclick="userGetDisconnected()" class="nav-link px-2 text-white" >Test Deconnecté</a></li>
-            </ul>
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Rechercher ...">
-            </form>
-
-            <div class="text-end">
-                <button id="deconnection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se deconnecter</button>
-            </div>
-        </div>
-    </div>
-</header>
-<div style="margin-top: 100px"></div>
-
-
-<!-- Affichage Suggestions -->
-
+<!-- Suggestions -->
 <div id="suggestion" class="album py-5 bg-light">
     <p class="fs-1 text-center">Mes suggestions</p>
     <div class="container">
@@ -108,22 +69,4 @@
     </div>
 </div>
 
-
-
-<!--Affichage Profil-->
-
-<br>
-<br>
-<br>
-<br>
-
-<footer class="p-3 bg-dark text-white fixed-bottom">
-    <div class="text-center p-3" >
-        Projet CineFilm : Ben Zakour - Bert - Poncy
-    </div>
-</footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
-<script src="../Javascript/javascript.js"></script>
-</body>
-</html>
+{{> footer}}
