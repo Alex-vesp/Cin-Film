@@ -1,7 +1,5 @@
 //GESTION DES FORMULAIRES
 
-
-
 function openFormConnec() {
     document.getElementById("myFormConnec").style.display = "block";
 }
@@ -20,7 +18,8 @@ function closeFormInscr() {
 */
 //GESTION DES ONGLETS
 
-function home(){/*
+function home(){
+    location.reload();/*
     document.getElementById("film").hidden = false;
     document.getElementById("filmIndividuel").hidden = true;
     document.getElementById("listes").hidden = true;

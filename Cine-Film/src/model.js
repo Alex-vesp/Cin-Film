@@ -6,15 +6,26 @@ let db = new Sqlite('db.sqlite');
 
 
 exports.read = (id) => {
-    var found = db.prepare('SELECT * FROM Film WHERE idFilm = ?').get(id);
-    if(found !== undefined) {
-        found.descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(id);
-        found.noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE nomFilm = ? ORDER BY noteMoyenne').all(id);
-        return found;
-    } else {
-        return null;
-    }
+    var nomFilm = db.prepare('SELECT nomFilm FROM Film WHERE idFilm = ?').get(id).nomFilm;
+    var dateFilm = db.prepare('SELECT  dateFilm FROM Film WHERE idFilm = ?').get(id).dateFilm;
+    var realisateursFilm = db.prepare('SELECT realisateursFilm FROM Film WHERE idFilm = ?').get(id).realisateursFilm;
+    var acteursFilm = db.prepare('SELECT acteursFilm FROM Film WHERE idFilm = ?').get(id).acteursFilm;
+    var noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE idFilm = ?').get(id).noteMoyenne;
+    var descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE idFilm = ?').get(id).descriptionFilm;
+    var results = db.prepare('SELECT * FROM Critique WHERE idFilm = ?').all(id);
+    return{
+        nomFilm : nomFilm,
+        dateFilm : dateFilm,
+        realisateursFilm : realisateursFilm,
+        acteursFilm : acteursFilm,
+        noteMoyenne : noteMoyenne,
+        descriptionFilm : descriptionFilm,
+        results : results,
+    };
 };
+
+
+
 
 
 /*
@@ -72,23 +83,19 @@ exports.supprimerUtilisateur = function(id) {
 
 
 
-exports.search = (query, page) => {
-    const num_per_page = 30;
+exports.search = (query) => {
     query = query || "";
-    page = parseInt(page || 1);
 
     var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
-    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm LIMIT ? OFFSET ?').all('%' + query + '%', num_per_page, (page - 1) * num_per_page);
+    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
 
     return {
         results: results,
         num_found: num_found,
         query: query,
-        next_page: page + 1,
-        page: page,
-        num_pages: parseInt(num_found / num_per_page) + 1,
     };
 };
+
 
 
 exports.login = function(user, password) {
