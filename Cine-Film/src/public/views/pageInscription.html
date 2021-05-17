@@ -5,21 +5,21 @@
     <div class="row justify-content-md-center">
         <div class="col-md-7 col-lg-8 justify-content-md-center">
             <h2 class="mb-3 text-center">S'inscrire</h2>
-            <form action="pageInscription.html" class="needs-validation" novalidate>
+            <form method="post" action="pageInscription.html" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" placeholder="Nom" value="" required>
+                        <input name="nom" type="text" class="form-control" id="nom" placeholder="Nom" value="" required>
                     </div>
 
                     <div class="col-sm-6">
                         <label for="prenom" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="prenom" placeholder="Prénom" value="" required>
+                        <input name="prenom" type="text" class="form-control" id="prenom" placeholder="Prénom" value="" required>
                     </div>
 
                     <div class="col-12">
                         <label for="pseudo" class="form-label">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" required>
+                        <input name="pseudo" type="text" class="form-control" id="pseudo" placeholder="Pseudo" required>
                         <div class="invalid-feedback">
                             Pseudo invalide ! (Au moins 6 charactères)
                         </div>
@@ -29,7 +29,7 @@
                         <label for="mail" class="form-label">email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">@</span>
-                            <input type="email" class="form-control" id="mail" placeholder="Mail" required>
+                            <input name="mail" type="email" class="form-control" id="mail" placeholder="Mail" required>
                             <div class="invalid-feedback">
                                 email invalide
                             </div>
@@ -38,7 +38,7 @@
 
                     <div class="col-12">
                         <label for="dateN" class="form-label">Date de naissance</label>
-                        <input type="date" class="form-control" id="dateN" placeholder="Date de naissance" required>
+                        <input name="dateN" type="date" class="form-control" id="dateN" placeholder="Date de naissance" required>
                         <div class="invalid-feedback">
                             Age invalide !!
                         </div>
@@ -48,7 +48,7 @@
 
                     <div class="col-sm-6">
                         <label for="mdp" class="form-label">Mot de passe</label>
-                        <input type="password" class="form-control" id="mdp" placeholder="Mot de passe" value="" required>
+                        <input name="mdp" type="password" class="form-control" id="mdp" placeholder="Mot de passe" value="" required>
                         <div class="invalid-feedback">
                             Mot de passe invalide (8 charactères minimum, une majuscule et un numéros requis)
                         </div>
@@ -56,7 +56,7 @@
 
                     <div class="col-sm-6">
                         <label for="mdpconfirm" class="form-label">Confirmer le mot de passe</label>
-                        <input type="password" class="form-control" id="mdpconfirm" placeholder="Confirmer le mot de passe" value="" required>
+                        <input name="mdpconfirm" type="password" class="form-control" id="mdpconfirm" placeholder="Confirmer le mot de passe" value="" required>
                         <div class="invalid-feedback">
                             Confirmation du mot de passe invalide
                         </div>
@@ -68,17 +68,17 @@
 
                     <div class="col-sm-4">
                         <label for="prefGenre" class="form-label">Genre préféré</label>
-                        <input type="text" class="form-control" id="prefGenre" placeholder="Genre" value="">
+                        <input name="prefGenre" type="text" class="form-control" id="prefGenre" placeholder="Genre" value="" required>
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefReal" class="form-label">Réalisateur préféré</label>
-                        <input type="text" class="form-control" id="prefReal" placeholder="Realisateur" value="">
+                        <input name="prefReal" type="text" class="form-control" id="prefReal" placeholder="Realisateur" value="" required>
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefAct" class="form-label">Acteur préféré</label>
-                        <input type="text" class="form-control" id="prefAct" placeholder="Acteur" value="" required>
+                        <input name="prefAct" type="text" class="form-control" id="prefAct" placeholder="Acteur" value="" required>
                     </div>
                 </div>
 
