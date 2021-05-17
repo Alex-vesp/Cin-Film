@@ -6,6 +6,7 @@ var mustache = require('mustache-express');
 
 var model = require('./model');
 var app = express();
+var Authentificated = false;
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -53,6 +54,7 @@ app.post('/login', (req, res) => {
     if(user != -1) {
         req.session.user = user;
         req.session.name = req.body.user;
+        Authentificated = true;
         res.redirect('index.html');
     } else {
         res.redirect('pageConnexion.html');
@@ -69,6 +71,7 @@ app.post('/pageInscription.html', (req, res) => {
             req.session.user = user;
             req.session.name = req.body.user;
             const connected = model.new_user(req.body.pseudo, req.body.mdp);
+            Authentificated = true;
             res.redirect('index.html');
         } else {
             res.redirect('/pageInscription.html');
