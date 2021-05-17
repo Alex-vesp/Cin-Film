@@ -12,33 +12,24 @@
  *************/
 
 const fetch = require('node-fetch')
+const json = require("body-parser/lib/types/json");
+const {response} = require("express");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 const APIKEY = '45c7524a7adb09538e00b07bff05d4e3';
 let baseURL = 'https://api.themoviedb.org/3/';
-let configData = null;
-let baseImageURL = null;
-let searchURL = 'search/movie?api_key='
-let baseSearchURL = baseURL + searchURL + APIKEY + '&query='
-let changeLanguageToFr = '&language=fr'
+let searchURL = 'search/movie?api_key=';
+let baseSearchURL = baseURL + searchURL + APIKEY + '&query=';
+let changeLanguageToFr = '&language=fr';
+let newText;
 
 let movieSearch = function (keyword){
-    let concatenedKeyword = keyword.replace(/ /g, '%20')
-    let url = ''.concat(baseSearchURL, concatenedKeyword, changeLanguageToFr);
-    fetch(url).then(response => response.json()).then(text => console.log(text))
+    let concatenatedKeyword = keyword.replace(/ /g, '%20')
+    let url = ''.concat(baseSearchURL, concatenatedKeyword, changeLanguageToFr);
+    fetch(url).then(response => response.text()).then(text => newText = JSON.parse(text).results[0]);
+
 }
 
-let runSearch = function (keyword) {
-    let url = ''.concat(baseURL, 'search/movie?api_key=', APIKEY, '&query=', keyword);
-    fetch(url)
-        .then(result=>result.json())
-        .then((data)=>{
-            //process the returned data
-            document.getElementById('output').innerHTML = JSON.stringify(data, null, 4);
-            //work with results array...
 
-        })
-}
-
-movieSearch("les dents")
-//document.addEventListener('DOMContentLoaded', getConfig);
-
+movieSearch("les dents de la mer");
