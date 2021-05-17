@@ -17,44 +17,32 @@ const {response} = require("express");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const APIKEY = '45c7524a7adb09538e00b07bff05d4e3';
+const APIKEY = '?api_key=45c7524a7adb09538e00b07bff05d4e3';
 let baseURL = 'https://api.themoviedb.org/3/';
-let searchURL = 'search/movie?api_key=';
+let searchURL = 'search/movie';
+let discoverMovie = 'discover/movie?api_key=';
+let release2010 = '&primary_release_year=2010&sort_by=vote_average.desc';
 let baseSearchURL = baseURL + searchURL + APIKEY + '&query=';
 let changeLanguageToFr = '&language=fr';
+let popularMovies = 'movie/popular';
+let baseRatedURL = baseURL + discoverMovie + APIKEY + changeLanguageToFr + release2010;
 
+
+let popularSearchURL = baseURL + popularMovies + APIKEY + changeLanguageToFr;
+
+let popularSearch = function (){
+    for(let i = 0; i < 20; i++) {
+        fetch(popularSearchURL).then(response => response.text()).then(data => console.log(JSON.parse(data).results[i].title)).catch(reason => reason);
+    }
+}
 
 let movieSearch = function (keyword){
     let concatenatedKeyword = keyword.replace(/ /g, '%20')
     let url = ''.concat(baseSearchURL, concatenatedKeyword, changeLanguageToFr);
-    fetch(url).then(response => response.text()).then(text => console.log(JSON.parse(text).results));
-
+        fetch(url).then(response => response.text()).then(data =>
+            console.log(JSON.parse(data).results[0]))
 }
 
-movieSearch("les dents de la mer");
-(function(console){
+//movieSearch("les dents de la mer");
+popularSearch();
 
-    console.save = function(data, filename){
-
-        if(!data) {
-            console.error('Console.save: No data')
-            return;
-        }
-
-        if(!filename) filename = 'console.json'
-
-        if(typeof data === "object"){
-            data = JSON.stringify(data, undefined, 4)
-        }
-
-        var blob = new Blob([data], {type: 'text/json'}),
-            e    = document.createEvent('MouseEvents'),
-            a    = document.createElement('a')
-
-        a.download = filename
-        a.href = window.URL.createObjectURL(blob)
-        a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
-        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-        a.dispatchEvent(e)
-    }
-})(console)

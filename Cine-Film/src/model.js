@@ -12,7 +12,7 @@ exports.read = (id) => {
     var acteursFilm = db.prepare('SELECT acteursFilm FROM Film WHERE idFilm = ?').get(id).acteursFilm;
     var noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE idFilm = ?').get(id).noteMoyenne;
     var descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE idFilm = ?').get(id).descriptionFilm;
-    var results = db.prepare('SELECT pseudoUtilisateur, note, date, message FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(id);
+    var results = db.prepare('SELECT * FROM Critique WHERE idFilm = ?').all(id);
     return{
         nomFilm : nomFilm,
         dateFilm : dateFilm,
@@ -96,36 +96,17 @@ exports.search = (query) => {
     };
 };
 
-exports.searchActeur = (acteur) => {
-    var results = db.prepare('SELECT idActeur FROM Acteur  WHERE nomActeur = ?').get(acteur);
-    if (results === undefined) return 1;
-    return results.idActeur
-};
-
-exports.searchRealisateur = (real) => {
-    var results = db.prepare('SELECT idRealisateur FROM Realisateur WHERE nomRealisateur = ? ').get(real);
-    if (results === undefined) return 1;
-    return results.idRealisateur;
-};
-
 
 
 exports.login = function(user, password) {
     var result = db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND mdpUtilisateur = ?').get(user, password);
     if(result === undefined) return -1;
-    return result.idUtilisateur;
+    return result.id;
 }
 
 exports.new_user = function(user, mail, password, nom, prenom, date, genre, acteur, realisateur) {
-    try{
-        var results = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre, acteur, realisateur);
-        return results.lastIndex;
-    }
-    catch (e){
-        console.log(e);
-    }
-
+    var result = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre, acteur, realisateur);
+    return result.lastInsertRowid;
 }
-
 
 

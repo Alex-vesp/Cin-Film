@@ -14,10 +14,10 @@
 <header class="p-3 bg-dark text-white fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center ">
-            <a href="/" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="index.html" onclick="home()" class="titre d-flex mb-2 mb-lg-0 text-white text-decoration-none">
                 <h1 class="bi me-2">CineFilm</h1>
             </a>
-            {{#authentificated}}
+            {{#isAuthentificated}}
             <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
                 <li><a href="pageListe.html" id="liste" class="nav-link px-2 text-white">Mes Listes</a></li>
                 <li><a href="pageSuggestions.html" id="suggestions" class="nav-link px-2 text-white">Suggestions</a></li>
@@ -26,20 +26,20 @@
             <div class="text-end">
                 <a href="pageAjouterFilm.html"><button id="ajotuerfilm" type="button" class="btn btn-outline-light me-2">Ajouter un film</button></a>
             </div>
-            {{/authentificated}}
+            {{/isAuthentificated}}
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Rechercher ...">
             </form>
 
             <div class="text-end">
-                {{^authentificated}}
+                {{^isAuthentificated}}
                 <a href="pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
                 <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter</button></a>
-                {{/authentificated}}
+                {{/isAuthentificated}}
 
-                {{#authentificated}}
+                {{#isAuthentificated}}
                 <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter</button></a>
-                {{/authentificated}}
+                {{/isAuthentificated}}
             </div>
         </div>
     </div>
