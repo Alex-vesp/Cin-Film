@@ -101,9 +101,8 @@ app.get('/pageConnexion.html', (req, res) => {
 
 
 app.get('/pageFilm.html/:id', (req, res) => {
-    var critique = model.critique(req.params.id);
     var entry = model.read(req.params.id);
-    res.render('pageFilm', entry);
+    res.render('pageFilm', (entry));
 });
 
 app.get('/pageFilmListe.html', (req, res) => {

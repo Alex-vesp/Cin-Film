@@ -12,6 +12,7 @@ exports.read = (id) => {
     var acteursFilm = db.prepare('SELECT acteursFilm FROM Film WHERE idFilm = ?').get(id).acteursFilm;
     var noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE idFilm = ?').get(id).noteMoyenne;
     var descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE idFilm = ?').get(id).descriptionFilm;
+    var results = db.prepare('SELECT * FROM Critique WHERE idFilm = ?').all(id);
     return{
         nomFilm : nomFilm,
         dateFilm : dateFilm,
@@ -19,19 +20,11 @@ exports.read = (id) => {
         acteursFilm : acteursFilm,
         noteMoyenne : noteMoyenne,
         descriptionFilm : descriptionFilm,
-    };
-};
-
-
-exports.critique = (id) => {
-    var results = db.prepare('SELECT * FROM Critique WHERE idFilm = ?').all(id);
-    var pseudoUtilisateur = db.prepare('SELECT pseudoUtilisateur FROM Critique, Utilisateur WHERE idFilm = ? AND idUtlisateur = (SELECT idUtilisateur FROM Utilisateur)').get(id);
-    console.log(pseudoUtilisateur);
-    return{
         results : results,
-        pseudoUtilisateur : pseudoUtilisateur,
     };
 };
+
+
 
 
 
