@@ -16,7 +16,6 @@ app.use(cookieSession({
     secret: 'mot-de-passe-du-cookie',
 }));
 
-
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.engine('html', mustache());
