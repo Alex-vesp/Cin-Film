@@ -22,14 +22,39 @@ let baseURL = 'https://api.themoviedb.org/3/';
 let searchURL = 'search/movie?api_key=';
 let baseSearchURL = baseURL + searchURL + APIKEY + '&query=';
 let changeLanguageToFr = '&language=fr';
-let newText;
+
 
 let movieSearch = function (keyword){
     let concatenatedKeyword = keyword.replace(/ /g, '%20')
     let url = ''.concat(baseSearchURL, concatenatedKeyword, changeLanguageToFr);
-    fetch(url).then(response => response.text()).then(text => newText = JSON.parse(text).results[0]);
+    fetch(url).then(response => response.text()).then(text => console.log(JSON.parse(text).results));
 
 }
 
-
 movieSearch("les dents de la mer");
+(function(console){
+
+    console.save = function(data, filename){
+
+        if(!data) {
+            console.error('Console.save: No data')
+            return;
+        }
+
+        if(!filename) filename = 'console.json'
+
+        if(typeof data === "object"){
+            data = JSON.stringify(data, undefined, 4)
+        }
+
+        var blob = new Blob([data], {type: 'text/json'}),
+            e    = document.createEvent('MouseEvents'),
+            a    = document.createElement('a')
+
+        a.download = filename
+        a.href = window.URL.createObjectURL(blob)
+        a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
+        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        a.dispatchEvent(e)
+    }
+})(console)

@@ -1,5 +1,13 @@
 //GESTION DES FORMULAIRES
 
+function userConnected(pseudo) {
+    window.alert("Bonjour " + pseudo + "/n vous êtes désormais bien connecté à votre compte, vous pouvez maintenant accéder à d'autres fonctionnalités telles que la création de listes ou encore la rédaction d'avis " )
+}
+
+function userNotConnected() {
+    window.alert("Il n'y a pas de correspondance avec le pseudo et le mot de passe rentrés, veuillez réessayer ! " )
+}
+
 function openFormConnec() {
     document.getElementById("myFormConnec").style.display = "block";
 }
