@@ -5,6 +5,10 @@ var mustache = require('mustache-express');
 
 var model = require('./model');
 var app = express();
+var isAuthentificated = false;
+
+
+
 
 
 const bodyParser = require('body-parser');
@@ -36,6 +40,7 @@ function is_authenticated(req, res, next) {
 // ajoute deux variables de session aux templates : authenticated et le nom de l'utilisateur
 app.use(function(req, res, next) {
     if(req.session.user !== undefined) {
+        isAuthentificated = true;
         res.locals.authenticated = true;
         res.locals.name = req.session.name;
     }
@@ -82,7 +87,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {
-    res.render('index');
+    var found = model.search(req.query.query);
+    res.render('index', found);
 });
 
 app.get('/pageConnecte.html', (req, res) => {
@@ -94,8 +100,10 @@ app.get('/pageConnexion.html', (req, res) => {
 });
 
 
-app.get('/pageFilm.html', (req, res) => {
-    res.render('pageFilm');
+app.get('/pageFilm.html/:id', (req, res) => {
+    var critique = model.critique(req.params.id);
+    var entry = model.read(req.params.id);
+    res.render('pageFilm', entry);
 });
 
 app.get('/pageFilmListe.html', (req, res) => {

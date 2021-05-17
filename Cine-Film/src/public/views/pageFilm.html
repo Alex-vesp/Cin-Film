@@ -1,25 +1,26 @@
 {{> header}}
 
 <div id="filmIndividuel" class="container">
-    <p  class="fs-1 text-center">Titre</p>
+
+    <p  class="fs-1 text-center">{{nomFilm}}</p>
     <div class="row justify-content-md-left">
         <div class="col-md-auto">
             <h6>Titre :</h6>
         </div>
         <div class="col-md-auto">
-            <p>Le commencement</p>
+            <p>{{nomFilm}}</p>
         </div>
         <div class="col-md-auto">
             <h6>Date de sortie :</h6>
         </div>
         <div class="col-md-auto">
-            <p>01/01/0001</p>
+            <p>{{dateFilm}}</p>
         </div>
         <div class="col-md-auto">
             <h6>Note moyenne :</h6>
         </div>
         <div class="col-md-auto">
-            <p class="text">10 <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
+            <p class="text">{{noteMoyenne}} <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
         </div>
     </div>
     <div class="row justify-content-md-left">
@@ -27,7 +28,7 @@
             <h6>Réalisateur(s) :</h6>
         </div>
         <div class="col-md-auto">
-            Dieux
+            {{realisateursFilm}}
         </div>
     </div>
     <div class="row justify-content-md-left">
@@ -35,20 +36,14 @@
             <h6>Acteur(s) :</h6>
         </div>
         <div class="col-md-auto">
-            Jesus enfant
-        </div>
-        <div class="col-md-auto">
-            Jesus ados
-        </div>
-        <div class="col-md-auto">
-            Jesus adulte
+            {{acteursFilm}}
         </div>
     </div>
     <div class="row justify-content-md-left">
         <h6>Description :</h6>
     </div>
     <div class="row justify-content-md-left">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p>{{descriptionFilm}}</p>
     </div>
     <p class="fs-1 text-center"><a id="" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
 
@@ -87,61 +82,32 @@
     <hr class="my-4">
 
     <h4 class="mb-3 text-center">Les avis</h4>
+    {{#results}}
 
     <div class="row justify-content-md-left">
         <div class="col-md-auto">
-            <h6>Pseudo</h6>
+            <h6>{{pseudoUtilisateur}}</h6>
         </div>
         <div class="col-md-auto">
-            <p class="text">10 <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
+            <p class="text">{{note}} <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
         </div>
     </div>
     <div class="row justify-content-md-left">
         <h6>Message :</h6>
     </div>
     <div class="row justify-content-md-left">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p>{{message}}</p>
     </div>
 
     <div class="col-md-3">
         <hr class="my-4">
     </div>
 
-    <div class="row justify-content-md-left">
-        <div class="col-md-auto">
-            <h6>Pseudo</h6>
-        </div>
-        <div class="col-md-auto">
-            <p class="text">10 <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
-        </div>
-    </div>
-    <div class="row justify-content-md-left">
-        <h6>Message :</h6>
-    </div>
-    <div class="row justify-content-md-left">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-    </div>
+
+    {{/results}}
 
 
 </div>
 
 
-
-
-
-
-<br>
-<br>
-<br>
-<br>
-
-<footer class="p-3 bg-dark text-white fixed-bottom">
-    <div class="text-center p-3" >
-        Projet CineFilm : Ben Zakour - Bert - Poncy
-    </div>
-</footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
-<script src="../Javascript/javascript.js"></script>
-</body>
-</html>
+{{> footer}}
