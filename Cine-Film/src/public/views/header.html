@@ -27,20 +27,29 @@
                 <a href="pageAjouterFilm.html"><button id="ajotuerfilm" type="button" class="btn btn-outline-light me-2">Ajouter un film</button></a>
             </div>
             {{/name}}
+
+            {{^name}}
+            <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
+            </ul>
+            {{/name}}
+
+
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Rechercher ...">
             </form>
 
+            {{^name}}
             <div class="text-end">
-                {{^name}}
                 <a href="pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
                 <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter {{name}}</button></a>
-                {{/name}}
-
-                {{#name}}
-                <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter</button></a>
-                {{/name}}
             </div>
+            {{/name}}
+
+            {{#name}}
+            <div class="text-end">
+                <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter</button></a>
+            </div>
+            {{/name}}
         </div>
     </div>
 </header>
