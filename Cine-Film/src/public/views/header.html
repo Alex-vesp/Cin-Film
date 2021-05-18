@@ -38,16 +38,17 @@
                 <input name="query" type="search" class="form-control form-control-dark" placeholder="Rechercher ..." value="{{query}}">
             </form>
 
+
             {{^name}}
             <div class="text-end">
                 <a href="pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
-                <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter {{name}}</button></a>
+                <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter </button></a>
             </div>
             {{/name}}
 
             {{#name}}
             <div class="text-end">
-                <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter</button></a>
+                <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter </button></a>
             </div>
             {{/name}}
         </div>

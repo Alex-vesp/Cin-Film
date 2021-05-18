@@ -13,6 +13,20 @@
                             <label class="input-group-text" for="inputGroupSelect01">Genre</label>
                             <select class="form-select-focus-1200" id="inputGroupSelect01">
                                 <option selected>Tous ... </option>
+                                {{#genres}}
+                                <option> {{nomGenre}}</option>
+                                {{/genres}}
+                            </select>
+                        </div>
+                    </li>
+                    <li class="nav-item" style="margin-left: 25px">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Acteurs</label>
+                            <select class="form-select-focus-1200" id="inputGroupSelect8">
+                                <option selected>Tous ... </option>
+                                {{#results}}
+                                <option> {{acteursFilm}}</option>
+                                {{/results}}
                             </select>
                         </div>
                     </li>
@@ -21,6 +35,9 @@
                             <label class="input-group-text" for="inputGroupSelect01">Réalisateur</label>
                             <select class="form-select-focus-1200" id="inputGroupSelect02">
                                 <option selected>Tous ... </option>
+                                {{#results}}
+                                <option> {{realisateursFilm}}</option>
+                                {{/results}}
                             </select>
                         </div>
                     </li>

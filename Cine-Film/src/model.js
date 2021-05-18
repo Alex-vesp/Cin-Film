@@ -87,9 +87,13 @@ exports.search = (query) => {
     query = query || "";
 
     var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
-    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
+    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, acteursFilm, realisateursFilm FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
+    var genres = db.prepare('SELECT nomGenre FROM Genre').all();
+    console.log(genres);
+
 
     return {
+        genres : genres,
         results: results,
         num_found: num_found,
         query: query,

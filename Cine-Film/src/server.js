@@ -54,6 +54,7 @@ app.post('/login', (req, res) => {
     if(user != -1) {
         req.session.user = user;
         req.session.name = req.body.user;
+        req.session.id = user;
         Authentificated = true;
         res.redirect('index.html');
     } else {
@@ -70,6 +71,7 @@ app.post('/pageInscription.html', (req, res) => {
         if(user != -1) {
             req.session.user = user;
             req.session.name = req.body.user;
+            req.session.id = user;
             const connected = model.new_user(req.body.pseudo, req.body.mdp);
             Authentificated = true;
             res.redirect('index.html');
@@ -78,6 +80,8 @@ app.post('/pageInscription.html', (req, res) => {
         }
     }
 });
+
+/**** Routes pour voir les pages du site ****/
 
 
 /** GET **/
@@ -97,6 +101,14 @@ app.get('/index.html', (req, res) => {
 
 app.get('/pageConnexion.html', (req, res) => {
     res.render('pageConnexion');
+});
+
+app.get('/pageAjouterFilm.html', (req, res) => {
+    res.render('pageAjouterFilm');
+});
+
+app.get('/pageModifierProfil.html', (req, res) => {
+    res.render('pageModifierProfil');
 });
 
 app.get('/login', (req, res) => {
@@ -145,12 +157,7 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-/*app.get('/search', (req, res) => {
-    var found = model.search(req.query.query, req.query.page);
-    res.render('search', found);
-});*/
 
-/**** Routes pour voir les pages du site ****/
 
 
 
