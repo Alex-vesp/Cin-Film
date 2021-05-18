@@ -108,7 +108,10 @@ app.get('/login', (req, res) => {
 
 });
 
-
+app.get('/search.html', (req, res) => {
+    var entry = model.search(req.query.query);
+    res.render('search', (entry));
+});
 
 app.get('/pageFilm.html/:id', (req, res) => {
     var entry = model.read(req.params.id);

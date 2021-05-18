@@ -34,8 +34,8 @@
             {{/name}}
 
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Rechercher ...">
+            <form method="get" action="search.html/{{query}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input name="query" type="search" class="form-control form-control-dark" placeholder="Rechercher ..." value="{{query}}">
             </form>
 
             {{^name}}
