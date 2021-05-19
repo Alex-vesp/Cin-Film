@@ -150,26 +150,41 @@ exports.new_user = function(user, mail, password, nom, prenom, date, genre, acte
     }
 
 }
-/*
 
-let entries = JSON.parse(fs.readFileSync('popular.json').toString());
-let load = function(filename) {
-    const movies = JSON.parse(fs.readFileSync(filename));
-
-    let insertFilm = db.prepare('INSERT INTO Film  VALUES (@idFilm, @nomFilm, @dateFilm, @acteursFilm, @realisateursFilm, @descriptionFilm, @dureeFilm, @noteMoyenne)');
-
-    let transaction = db.transaction((movies) => {
-
-        for(let id = 0;id < movies.length; id++) {
-            movies.results.title = nomFilm;
-            insertFilm.run(movies);
-        }
-    });
-
-    transaction(movies);
+exports.update_userMdp = function(id, mdp) {
+    try {
+        db.prepare('UPDATE Utilisateur SET mdpUtilisateur = ?  WHERE idUtilisateur = ?').run(mdp, id);
+    }
+    catch (e){
+        console.log(e);
+    }
 }
-*/
 
-//load('popular.json');
+exports.update_userInfos = function(id, pseudo, nom, prenom, email, date) {
+    try{
+        var existpseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND idUtilisateur != ?').get(pseudo, id);
+        if (existpseudo === undefined){
+            var existemail = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE mailUtilisateur = ? AND idUtilisateur != ?').get(email, id);
+            if (existemail === undefined) {
+                db.prepare('UPDATE Utilisateur SET pseudoUtilisateur = ?, mailUtilisateur = ?, nomUtilisateur = ?, prenomUtilisateur = ?, dateNaissance = ?  WHERE idUtilisateur = ?').run(pseudo, email, nom, prenom, date, id);
+                return;
+            }
+            console.log("email déja présent");
+            return;
+        }
+        console.log("pseudo déja présent");
+    }
+    catch (e){
+        console.log(e);
+    }
+}
 
+exports.update_userPref = function(id, genre, acteur, realisateur) {
+    try {
+        db.prepare('UPDATE Utilisateur SET nomGenre = ?, idActeur = ?, idRealisateur = ?  WHERE idUtilisateur = ?').run(genre, acteur, realisateur, id);
+    }
+    catch (e){
+        console.log(e);
+    }
+}
 

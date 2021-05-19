@@ -54,8 +54,7 @@ app.post('/login', (req, res) => {
     if(user != -1) {
         req.session.user = user;
         req.session.name = req.body.user;
-        req.session.id = user;
-        Authentificated = true;
+        req.session.mdp = req.body.password;
         res.redirect('index.html');
     } else {
         res.redirect('pageConnexion.html');
@@ -77,20 +76,38 @@ app.post('/pageInscription.html', (req, res) => {
     if (req.body.mdp === req.body.mdpconfirm) {
         const idActeur = model.searchActeur(req.body.prefAct);
         const idReal = model.searchRealisateur(req.body.prefReal);
-        console.log(req.body.mdp);
         const user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, req.body.prefGenre, idActeur, idReal );
         if(user != -1) {
-            req.session.user = user;
-            req.session.name = req.body.user;
-            req.session.id = user;
-            const connected = model.new_user(req.body.pseudo, req.body.mdp);
-            Authentificated = true;
-            res.redirect('index.html');
+            res.redirect('/index.html');
         } else {
             res.redirect('/pageInscription.html');
         }
     }
 });
+
+app.post('/pageModifierProfil.html/1', (req, res) => {
+    model.update_userInfos(req.session.user, req.body.pseudo, req.body.nom, req.body.prenom,  req.body.mail, req.body.dateN);
+    res.redirect('/pageModifierProfil.html');
+});
+
+app.post('/pageModifierProfil.html/3', (req, res) => {
+    const idActeur = model.searchActeur(req.body.prefAct);
+    const idReal = model.searchRealisateur(req.body.prefReal);
+    model.update_userPref(req.session.user, req.body.prefGenre, idActeur, idReal);
+    res.redirect('/pageModifierProfil.html');
+});
+
+app.post('/pageModifierProfil.html/2', (req, res) => {
+    if (req.body.mdpactuel === req.session.mdp){
+        if (req.body.nvxmdp === req.body.nvxmdpconfirm){
+            model.update_userMdp(req.session.user, req.body.nvxmdp);
+        }
+        else console.log("les 2 mdp de confirmation ne sont pas les memes");
+    }
+    else console.log("le mdp n'est pas celui de l'utilisateur")
+    res.redirect('/pageModifierProfil.html');
+});
+
 
 /**** Routes pour voir les pages du site ****/
 
@@ -173,5 +190,5 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-app.listen(4002, () => console.log('listening on http://localhost:4002'));
+app.listen(4003, () => console.log('listening on http://localhost:4003'));
 

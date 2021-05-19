@@ -4,22 +4,22 @@
 <div id="inscriptionform" class="container" style="margin-top: 10px">
     <div class="row justify-content-md-center">
         <div class="col-md-7 col-lg-8 justify-content-md-center">
-            <h2 class="mb-3 text-center">Moddifier mon profil</h2>
-            <form class="needs-validation" novalidate>
+            <h2 class="mb-3 text-center">Modifier mon profil</h2>
+            <form method="post" action="/pageModifierProfil.html/1" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" placeholder="Nom" value="" required>
+                        <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom" value="" required>
                     </div>
 
                     <div class="col-sm-6">
                         <label for="prenom" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="prenom" placeholder="Prénom" value="" required>
+                        <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Prénom" value="" required>
                     </div>
 
                     <div class="col-12">
                         <label for="pseudo" class="form-label">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" required>
+                        <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Pseudo" required>
                         <div class="invalid-feedback">
                             Pseudo invalide ! (Au moins 6 charactères)
                         </div>
@@ -29,7 +29,7 @@
                         <label for="mail" class="form-label">email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">@</span>
-                            <input type="email" class="form-control" id="mail" placeholder="Mail" required>
+                            <input type="email" class="form-control" name="mail" id="mail" placeholder="Mail" required>
                             <div class="invalid-feedback">
                                 email invalide
                             </div>
@@ -38,31 +38,32 @@
 
                     <div class="col-12">
                         <label for="dateN" class="form-label">Date de naissance</label>
-                        <input type="date" class="form-control" id="dateN" placeholder="Date de naissance" required>
+                        <input type="date" class="form-control" name="dateN" id="dateN" placeholder="Date de naissance" required>
                         <div class="invalid-feedback">
                             Age invalide !!
                         </div>
                     </div>
                 </div>
                 <br>
-                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Moddifier les informations</button>
+                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Modifier les informations</button>
             </form>
-            <form class="needs-validation" novalidate>
+            <br>
+            <form method="post" action="/pageModifierProfil.html/2" class="needs-validation" novalidate>
 
                 <div class="row g-3">
                     <hr class="my-4">
 
                     <div class="col-sm-12">
                         <label for="mdpactuel" class="form-label">Mot de passe actuel</label>
-                        <input type="password" class="form-control" id="mdpactuel" placeholder="..." value="" required>
+                        <input type="password" class="form-control" name="mdpactuel" id="mdpactuel" placeholder="..." value="" required>
                         <div class="invalid-feedback">
                             Mot de passe invalide (8 charactères minimum, une majuscule et un numéros requis)
                         </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="nvxmdp" class="form-label">Nouveaux mot de passe</label>
-                        <input type="password" class="form-control" id="nvxmdp" placeholder="Mot de passe" value="" required>
+                        <label for="nvxmdp" class="form-label">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" name="nvxmdp" id="nvxmdp" placeholder="Mot de passe" value="" required>
                         <div class="invalid-feedback">
                             Mot de passe invalide (8 charactères minimum, une majuscule et un numéros requis)
                         </div>
@@ -70,37 +71,37 @@
 
                     <div class="col-sm-6">
                         <label for="nvxmdpconfirm" class="form-label">Confirmer le mot de passe</label>
-                        <input type="password" class="form-control" id="nvxmdpconfirm" placeholder="Confirmer le mot de passe" value="" required>
+                        <input type="password" class="form-control" name="nvxmdpconfirm" id="nvxmdpconfirm" placeholder="Confirmer le mot de passe" value="" required>
                         <div class="invalid-feedback">
                             Confirmation du mot de passe invalide
                         </div>
                     </div>
                 </div>
                 <br>
-                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Moddifier le mot de passe</button>
+                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Modifier le mot de passe</button>
             </form>
             <hr class="my-4">
 
             <h4 class="mb-3">Préférences</h4>
-            <form class="needs-validation" novalidate>
+            <form method="post" action="/pageModifierProfil.html/3" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-4">
                         <label for="prefGenre" class="form-label">Genre préféré</label>
-                        <input type="text" class="form-control" id="prefGenre" placeholder="Genre" value="">
+                        <input type="text" class="form-control" name="prefGenre" id="prefGenre" placeholder="Genre" value="">
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefReal" class="form-label">Réalisateur préféré</label>
-                        <input type="password" class="form-control" id="prefReal" placeholder="Réalisateur" value="">
+                        <input type="text" class="form-control" name="prefReal" id="prefReal" placeholder="Réalisateur" value="">
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefAct" class="form-label">Acteur préféré</label>
-                        <input type="password" class="form-control" id="prefAct" placeholder="Acteur" value="" required>
+                        <input type="text" class="form-control" name="prefAct" id="prefAct" placeholder="Acteur" value="" required>
                     </div>
                 </div>
                 <br>
-                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Moddifier les preférences</button>
+                <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Modifier les preférences</button>
             </form>
         </div>
     </div>
