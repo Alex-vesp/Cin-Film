@@ -132,7 +132,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/search.html', (req, res) => {
-    var entry = model.search(req.query.query);
+        var entry = model.search(req.query.query);
     res.render('search', (entry));
 });
 
@@ -168,5 +168,10 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-app.listen(4000, () => console.log('listening on http://localhost:4000'));
+
+
+
+
+
+app.listen(4002, () => console.log('listening on http://localhost:4002'));
 

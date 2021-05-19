@@ -20,12 +20,12 @@
             </a>
             {{#name}}
             <ul class="menu nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
-                <li><a href="pageListe.html" id="liste" class="nav-link px-2 text-white">Mes Listes</a></li>
-                <li><a href="pageSuggestions.html" id="suggestions" class="nav-link px-2 text-white">Suggestions</a></li>
-                <li><a href="pageProfil.html"  id="profil" class="nav-link px-2 text-white">Mon Profil</a></li>
+                <li><a href="/pageListe.html" id="liste" class="nav-link px-2 text-white">Mes Listes</a></li>
+                <li><a href="/pageSuggestions.html" id="suggestions" class="nav-link px-2 text-white">Suggestions</a></li>
+                <li><a href="/pageProfil.html"  id="profil" class="nav-link px-2 text-white">Mon Profil</a></li>
             </ul>
             <div class="text-end">
-                <a href="pageAjouterFilm.html"><button id="ajotuerfilm" type="button" class="btn btn-outline-light me-2">Ajouter un film</button></a>
+                <a href="/pageAjouterFilm.html"><button id="ajotuerfilm" type="button" class="btn btn-outline-light me-2">Ajouter un film</button></a>
             </div>
             {{/name}}
 
@@ -35,21 +35,21 @@
             {{/name}}
 
 
-            <form method="get" action="search.html/{{query}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <form method="get" action="/search.html" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input name="query" type="search" class="form-control form-control-dark" placeholder="Rechercher ..." value="{{query}}">
             </form>
 
 
             {{^name}}
             <div class="text-end">
-                <a href="pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
-                <a href="pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter </button></a>
+                <a href="/pageInscription.html"><button id="inscription" onclick="openInscription()" type="button" class="btn btn-outline-light me-2">S'inscrire</button></a>
+                <a href="/pageConnexion.html"><button id="connection" onclick="openFormConnec()" type="button" class="btn btn-outline-light me-2">Se connecter </button></a>
             </div>
             {{/name}}
 
             {{#name}}
             <div class="text-end">
-                <a href="deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter </button></a>
+                <a href="/deconnexion.html"><button id="deconnection" type="button" class="btn btn-outline-light me-2" >Se deconnecter </button></a>
             </div>
             {{/name}}
         </div>
