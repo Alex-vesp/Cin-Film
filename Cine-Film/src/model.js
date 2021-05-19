@@ -107,12 +107,10 @@ exports.search = (query) => {
     var genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
     let i=0;
     for (i; i<res.length; i++){
-        console.log("entree i", i);
         var j = 0;
         var noteMoyenne = 0;
         var resultsCritiques = db.prepare('SELECT note FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(res[i].idFilm);
         for (j; j<resultsCritiques.length; j++) {
-            console.log("entree j", j);
             noteMoyenne = noteMoyenne + resultsCritiques[j].note;
         }
         if (noteMoyenne === 0){
@@ -122,7 +120,6 @@ exports.search = (query) => {
             noteMoyenne = noteMoyenne / j;
         }
         db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res[i].idFilm);
-        console.log("requete");
     }
     var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
 
