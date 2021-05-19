@@ -9,23 +9,33 @@
         <p  class="fs-4 text-center">Mes informations</p>
             <img src="images/person.svg" height="100px">
         <div class="col-md-auto">
-            <h6>Pseudo</h6>
+            {{#results}}
+            <h6>Pseudo : {{pseudoUtilisateur}}</h6>
+            {{/results}}
         </div>
         <div class="col-md-auto">
-            <h6>Nom</h6>
+            {{#results}}
+            <h6>Nom : {{nomUtilisateur}}</h6>
+            {{/results}}
         </div>
         <div class="col-md-auto">
-            <h6>Prenom</h6>
+            {{#results}}
+            <h6>Prenom : {{prenomUtilisateur}}</h6>
+            {{/results}}
         </div>
         <div class="col-md-auto">
-            <h6>Date de naissance</h6>
+            {{#results}}
+            <h6>Date de naissance : {{dateNaissance}}</h6>
+            {{/results}}
+        </div>
+        <div class="col-md-auto">
+            {{#results}}
+            <h6>Email : {{mailUtilisateur}}</h6>
+            {{/results}}
         </div>
     </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <h6>email</h6>
-        </div>
-    </div>
+
+
 
     <hr class="my-4">
     <div class="row justify-content-md-center">
@@ -42,13 +52,16 @@
     </div>
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
-            <p>Genre</p>
+            {{#results}}
+            <p>{{nomGenre}}</p>
+            {{/results}}
+        </div>
+
+        <div class="col-md-auto">
+            <p>{{resultsReal}}</p>
         </div>
         <div class="col-md-auto">
-            <p>Réalisateur</p>
-        </div>
-        <div class="col-md-auto">
-            <p>Acteur</p>
+            <p>{{resultsActeur}}</p>
         </div>
     </div>
     <div class="row justify-content-md-center">

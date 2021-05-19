@@ -76,7 +76,7 @@ exports.search = (query) => {
         }
         db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res[i].idFilm);
     }
-    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
+    let results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
 
     return {
         acteurs : acteurs,
@@ -87,6 +87,19 @@ exports.search = (query) => {
         query: query,
     };
 };
+
+exports.searchProfil = (id) => {
+    let results = db.prepare('SELECT pseudoUtilisateur, mailUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id);
+    let resultsActeur = db.prepare('SELECT nomActeur FROM Acteur  WHERE idActeur = ?').get(results.idActeur).nomActeur;
+    let resultsReal = db.prepare('SELECT nomRealisateur FROM Realisateur  WHERE idRealisateur = ?').get(results.idRealisateur).nomRealisateur;
+    return {
+        results : results,
+        resultsActeur : resultsActeur,
+        resultsReal : resultsReal,
+    }
+};
+
+
 
 exports.searchActeur = (acteur) => {
     var results = db.prepare('SELECT idActeur FROM Acteur  WHERE nomActeur = ?').get(acteur);

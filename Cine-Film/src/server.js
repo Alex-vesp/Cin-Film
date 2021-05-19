@@ -139,17 +139,8 @@ app.get('/pageModifierProfil.html', (req, res) => {
     res.render('pageModifierProfil');
 });
 
-app.get('/login', (req, res) => {
-    console.log("loginnn2");
-    console.log(req.body.user);
-    var yes = model.login(req.params.user, req.body.password);
-    res.render('pageConnexion');
-
-
-});
-
 app.get('/search.html', (req, res) => {
-        var entry = model.search(req.query.query);
+    var entry = model.search(req.query.query);
     res.render('search', (entry));
 });
 
@@ -171,7 +162,8 @@ app.get('/pageListe.html', (req, res) => {
 });
 
 app.get('/pageProfil.html', (req, res) => {
-    res.render('pageProfil');
+    var found = model.searchProfil(req.session.user);
+    res.render('pageProfil', (found));
 });
 
 app.get('/pageSuggestions.html', (req, res) => {
