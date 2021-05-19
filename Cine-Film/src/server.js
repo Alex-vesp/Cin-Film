@@ -168,54 +168,5 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-/**Méthodes a utiliser (pour s'inspirer) -> **/
-
-/*
-app.get('/read/:id', (req, res) => {
-    var entry = model.read(req.params.id);
-    res.render('read', entry);
-});
-
-app.get('/create', is_authenticated, (req, res) => {
-    res.render('create');
-});
-
-app.get('/update/:id', is_authenticated, (req, res) => {
-    var entry = model.read(req.params.id);
-    res.render('update', entry);
-});
-
-app.get('/delete/:id', is_authenticated, (req, res) => {
-    var entry = model.read(req.params.id);
-    res.render('delete', {id: req.params.id, title: entry.title});
-});
-
-
-
-
-function post_data_to_recipe(req) {
-    return {
-        title: req.body.title,
-        description: req.body.description,
-        img: req.body.img,
-        duration: req.body.duration,
-        ingredients: req.body.ingredients.trim().split(/\s*-/).filter(e => e.length > 0).map(e => ({name: e.trim()})),
-        stages: req.body.stages.trim().split(/\s*-/).filter(e => e.length > 0).map(e => ({description: e.trim()})),
-    };
-}
-
-app.post('/delete/:id', is_authenticated, (req, res) => {
-    model.delete(req.params.id);
-    res.redirect('/');
-});
-*/
 app.listen(4000, () => console.log('listening on http://localhost:4000'));
 

@@ -32,9 +32,21 @@ let popularSearchURL = baseURL + popularMovies + APIKEY + changeLanguageToFr;
 
 let popularSearch = function (){
     for(let i = 0; i < 20; i++) {
-        fetch(popularSearchURL).then(response => response.text()).then(data => console.log(JSON.parse(data).results[i].title)).catch(reason => reason);
+        fetch(popularSearchURL).then(response => response.text()).then(data => console.log(JSON.parse(data).results[i])).catch(reason => reason);
     }
 }
+
+let newJson;
+/*
+let popularSearch = function (){
+        fetch(popularSearchURL).then(response => response.text()).then(data => console.log(data.results)).catch(reason => reason);
+        //console.log(newJson);
+}
+*/
+
+
+
+
 
 let movieSearch = function (keyword){
     let concatenatedKeyword = keyword.replace(/ /g, '%20')

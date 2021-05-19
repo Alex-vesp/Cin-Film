@@ -29,7 +29,8 @@ var load = function() {
     db.prepare('CREATE TABLE Realisateur (idRealisateur INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nomRealisateur varchar(30) NOT NULL, prenomRealisateur varchar(30) NOT NULL)').run();
     db.prepare('CREATE TABLE Utilisateur (idUtilisateur INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, pseudoUtilisateur varchar(20) NOT NULL UNIQUE, mailUtilisateur varchar(50) NOT NULL UNIQUE, mdpUtilisateur varchar(50) NOT NULL UNIQUE, nomUtilisateur varchar(50) NOT NULL UNIQUE, prenomUtilisateur varchar(50) NOT NULL UNIQUE, dateNaissance INTEGER NOT NULL, nomGenre varchar(50) NOT NULL UNIQUE, idActeur INTEGER NOT NULL, idRealisateur INTEGER NOT NULL)').run();
 
-    //var insertFilm = db.prepare('INSERT INTO Film  VALUES (@idFilm, @nomFilm, @dateFilm, @acteursFilm, @realisateursFilm, @descriptionFilm, @dureeFilm, @noteMoyenne)');
+
+
 }
 
 load();

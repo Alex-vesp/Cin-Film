@@ -1,6 +1,7 @@
 "use strict"
 /* Module de recherche dans une base de données de films */
 const Sqlite = require('better-sqlite3');
+const fs = require("fs");
 
 let db = new Sqlite('db.sqlite');
 
@@ -39,52 +40,6 @@ exports.read = (id) => {
 };
 
 
-
-
-
-/*
-exports.create = function(recipe) {
-    var id = db.prepare('INSERT INTO recipe (title, img, description, duration) VALUES (@title, @img, @description, @duration)').run(recipe).lastInsertRowid;
-
-    var insert1 = db.prepare('INSERT INTO ingredient VALUES (@recipe, @rank, @name)');
-    var insert2 = db.prepare('INSERT INTO stage VALUES (@recipe, @rank, @description)');
-
-    var transaction = db.transaction((recipe) => {
-        for(var j = 0; j < recipe.ingredients.length; j++) {
-            insert1.run({recipe: id, rank: j, name: recipe.ingredients[j].name});
-        }
-        for(var j = 0; j < recipe.stages.length; j++) {
-            insert2.run({recipe: id, rank: j, description: recipe.stages[j].description});
-        }
-    });
-
-    transaction(recipe);
-    return id;
-}
-
-
-exports.update = function(id, Film) {
-    var result = db.prepare('UPDATE recipe SET nomFilm = @nomFilm, dateFilm = @dateFilm, acteursFilm = @acteursFilm, realisateursFilm = @realisateursFilm, descriptionFilm = @descriptionFilm, dureeFilm = @dureeFilm,  WHERE idFilm = ?').run(Film, id);
-    if(result.changes == 1) {
-        var insert1 = db.prepare('INSERT INTO ingredient VALUES (@recipe, @rank, @name)');
-        var insert2 = db.prepare('INSERT INTO stage VALUES (@recipe, @rank, @description)');
-
-        var transaction = db.transaction((recipe) => {
-            db.prepare('DELETE FROM ingredient WHERE recipe = ?').run(id);
-            for(var j = 0; j < recipe.ingredients.length; j++) {
-                insert1.run({recipe: id, rank: j, name: recipe.ingredients[j].name});
-            }
-            db.prepare('DELETE FROM stage WHERE recipe = ?').run(id);
-            for(var j = 0; j < recipe.stages.length; j++) {
-                insert2.run({recipe: id, rank: j, description: recipe.stages[j].description});
-            }
-        });
-
-        transaction(recipe);
-        return true;
-    }
-    return false;
-}*/
 
 
 exports.supprimerFilm = function(id) {
@@ -195,6 +150,26 @@ exports.new_user = function(user, mail, password, nom, prenom, date, genre, acte
     }
 
 }
+/*
 
+let entries = JSON.parse(fs.readFileSync('popular.json').toString());
+let load = function(filename) {
+    const movies = JSON.parse(fs.readFileSync(filename));
+
+    let insertFilm = db.prepare('INSERT INTO Film  VALUES (@idFilm, @nomFilm, @dateFilm, @acteursFilm, @realisateursFilm, @descriptionFilm, @dureeFilm, @noteMoyenne)');
+
+    let transaction = db.transaction((movies) => {
+
+        for(let id = 0;id < movies.length; id++) {
+            movies.results.title = nomFilm;
+            insertFilm.run(movies);
+        }
+    });
+
+    transaction(movies);
+}
+*/
+
+//load('popular.json');
 
 
