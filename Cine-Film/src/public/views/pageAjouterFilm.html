@@ -5,33 +5,48 @@
     <div class="row justify-content-md-center">
         <div class="col-md-7 col-lg-8 justify-content-md-center">
             <h2 class="mb-3 text-center">S'inscrire</h2>
-            <form class="needs-validation" novalidate>
+            <form method="post" action="pageAjouterFilm.html" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="titrefilm" class="form-label">Titre</label>
-                        <input type="text" class="form-control" id="titrefilm" placeholder="Titre" value="" required>
+                        <input type="text" class="form-control" name="titrefilm" id="titrefilm" placeholder="Titre" value="" required>
                     </div>
 
                     <div class="col-sm-6">
                         <label for="datesortiefilm" class="form-label">Date de sortie</label>
-                        <input type="date" class="form-control" id="datesortiefilm" placeholder="date de sortie" value="" required>
+                        <input type="date" class="form-control" name="datesortiefilm" id="datesortiefilm" placeholder="date de sortie" value="" required>
                     </div>
 
                     <div class="col-12">
                         <label for="realisateurs" class="form-label">Réalisateur(s)</label>
-                        <input type="text" class="form-control" id="realisateurs" placeholder="realisateur1, realisateur2, ..." required>
+                        <input type="text" class="form-control" name="realisateurs" id="realisateurs" placeholder="realisateur1, realisateur2, ..." required>
                     </div>
 
                     <div class="col-12">
                         <label for="acteurs" class="form-label">Acteur(s)</label>
-                        <input type="text" class="form-control" id="acteurs" placeholder="acteur1, acteur2, ..." required>
+                        <input type="text" class="form-control" name="acteurs" id="acteurs" placeholder="acteur1, acteur2, ..." required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="genres" class="form-label">Genre(s)</label>
+                        <input type="text" class="form-control" name="genres" id="genres" placeholder="genre1, genre2, ..." required>
                     </div>
 
                     <hr class="my-4">
 
                     <div class="col-12">
+                        <label for="duree" class="form-label">Durée Film (en minutes)</label>
+                        <input type="number" class="form-control" name="duree" id="duree" placeholder="90" required>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="image" class="form-label">Image (facultatif)</label>
+                        <input type="text" class="form-control" name="image" id="image" placeholder="" value="" required>
+                    </div>
+
+                    <div class="col-12">
                         <label for="description" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="description" placeholder="" style="height: 100px"></textarea>
+                        <textarea type="text" class="form-control" name="description" id="description" placeholder="" style="height: 100px"></textarea>
                     </div>
 
                 </div>

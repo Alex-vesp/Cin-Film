@@ -62,6 +62,17 @@ app.post('/login', (req, res) => {
     }
 });
 
+app.post('/pageAjouterFilm.html', (req, res) => {
+    console.log("ajout film");
+    let image;
+    if(req.body.image === ""){
+        image = "https://sobusygirls.fr/uploads/2012/02/inconnue2-2.jpg";
+    }
+    else image = req.body.image;
+    const user = model.ajouterFilm(req.body.titrefilm, req.body.datesortiefilm, req.body.realisateurs, req.body.acteurs, req.body.description, req.body.duree, image, req.body.genres);
+    res.redirect('index.html');
+});
+
 app.post('/pageInscription.html', (req, res) => {
     if (req.body.mdp === req.body.mdpconfirm) {
         const idActeur = model.searchActeur(req.body.prefAct);

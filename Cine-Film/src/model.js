@@ -12,6 +12,8 @@ exports.read = (id) => {
     var acteursFilm = db.prepare('SELECT acteursFilm FROM Film WHERE idFilm = ?').get(id).acteursFilm;
     var noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE idFilm = ?').get(id).noteMoyenne;
     var descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE idFilm = ?').get(id).descriptionFilm;
+    var duree = db.prepare('SELECT dureeFilm FROM Film WHERE idFilm = ?').get(id).dureeFilm;
+    var image = db.prepare('SELECT image FROM Film WHERE idFilm = ?').get(id).image ;
     var results = db.prepare('SELECT pseudoUtilisateur, note, date, message FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(id);
     return{
         nomFilm : nomFilm,
@@ -20,6 +22,8 @@ exports.read = (id) => {
         acteursFilm : acteursFilm,
         noteMoyenne : noteMoyenne,
         descriptionFilm : descriptionFilm,
+        duree: duree,
+        image: image,
         results : results,
     };
 };
@@ -87,12 +91,15 @@ exports.search = (query) => {
     query = query || "";
 
     var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
-    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, acteursFilm, realisateursFilm FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
-    var genres = db.prepare('SELECT nomGenre FROM Genre').all();
-    console.log(genres);
+    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
+    var acteurs = db.prepare('SELECT idActeur FROM A_Joue GROUP BY idActeur ORDER BY idActeur').all();
+    var realisateurs = db.prepare('SELECT idRealisateur FROM A_Realise GROUP BY idRealisateur ORDER BY idRealisateur').all();
+    var genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
 
 
     return {
+        acteurs : acteurs,
+        realisateurs : realisateurs,
         genres : genres,
         results: results,
         num_found: num_found,
@@ -112,7 +119,34 @@ exports.searchRealisateur = (real) => {
     return results.idRealisateur;
 };
 
+exports.ajouterFilm = function(titre, date, realisateurs, acteurs, description, duree, image, genres) {
+    let listeActeurs = acteurs.split(",");
+    let listeRealisateurs = realisateurs.split(",");
+    let listeGenres = genres.split(",");
+    var exist = db.prepare('SELECT nomFilm FROM Film WHERE nomFilm = ?').get(titre);
+    if (exist === undefined){
+        db.prepare('INSERT INTO Film (nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image) VALUES (?, ?, ?, ?, ?, ?, ?)').run(titre, date, acteurs, realisateurs, description, duree, image);
+        var result = db.prepare('SELECT idFilm FROM Film WHERE nomFilm = ?').get(titre).idFilm;
+        exports.ajouter(listeActeurs, listeRealisateurs, listeGenres, result);
+        return result;
+    }
+    console.log("film déja présent");
+    return db.prepare('SELECT idFilm FROM Film WHERE nomFilm = ?').get(titre).idFilm;
+}
 
+exports.ajouter = function(listeActeurs, listeRealisateurs, listeGenres, idFilm){
+        for (let i=0; i<listeActeurs.length; i++){
+            db.prepare('INSERT INTO A_Joue (idFilm, idActeur) VALUES (?, ?)').run(idFilm, listeActeurs[i]);
+        }
+
+        for (let i=0; i<listeRealisateurs.length; i++){
+            db.prepare('INSERT INTO A_Realise (idFilm, idRealisateur) VALUES (?, ?)').run(idFilm, listeRealisateurs[i]);
+        }
+
+        for (let i=0; i<listeGenres.length; i++){
+        db.prepare('INSERT INTO Genre (idFilm, nomGenre) VALUES (?, ?)').run(idFilm, listeGenres[i]);
+        }
+}
 
 exports.login = function(user, password) {
     var result = db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND mdpUtilisateur = ?').get(user, password);
@@ -122,8 +156,13 @@ exports.login = function(user, password) {
 
 exports.new_user = function(user, mail, password, nom, prenom, date, genre, acteur, realisateur) {
     try{
+        var exist = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user);
+        if (exist === undefined){
         var results = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre, acteur, realisateur);
         return results.lastIndex;
+        }
+        console.log("pseudo déja présent");
+        return db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user).idUtilisateur;
     }
     catch (e){
         console.log(e);

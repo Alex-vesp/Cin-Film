@@ -24,9 +24,9 @@
                             <label class="input-group-text" for="inputGroupSelect01">Acteurs</label>
                             <select class="form-select-focus-1200" id="inputGroupSelect8">
                                 <option selected>Tous ... </option>
-                                {{#results}}
-                                <option> {{acteursFilm}}</option>
-                                {{/results}}
+                                {{#acteurs}}
+                                <option> {{idActeur}}</option>
+                                {{/acteurs}}
                             </select>
                         </div>
                     </li>
@@ -35,9 +35,9 @@
                             <label class="input-group-text" for="inputGroupSelect01">Réalisateur</label>
                             <select class="form-select-focus-1200" id="inputGroupSelect02">
                                 <option selected>Tous ... </option>
-                                {{#results}}
-                                <option> {{realisateursFilm}}</option>
-                                {{/results}}
+                                {{#realisateurs}}
+                                <option> {{idRealisateur}}</option>
+                                {{/realisateurs}}
                             </select>
                         </div>
                     </li>
@@ -93,7 +93,7 @@
                         {{nomFilm}}</text></svg>
 
                     <div class="card-body">
-                        <p class="card-text"> {{descriptionFilm}} </p>
+                        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text"> {{descriptionFilm}} </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="pageFilm.html/{{idFilm}}"><button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button></a>
