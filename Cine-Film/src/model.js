@@ -10,11 +10,21 @@ exports.read = (id) => {
     var dateFilm = db.prepare('SELECT  dateFilm FROM Film WHERE idFilm = ?').get(id).dateFilm;
     var realisateursFilm = db.prepare('SELECT realisateursFilm FROM Film WHERE idFilm = ?').get(id).realisateursFilm;
     var acteursFilm = db.prepare('SELECT acteursFilm FROM Film WHERE idFilm = ?').get(id).acteursFilm;
-    var noteMoyenne = db.prepare('SELECT noteMoyenne FROM Film WHERE idFilm = ?').get(id).noteMoyenne;
     var descriptionFilm = db.prepare('SELECT descriptionFilm FROM Film WHERE idFilm = ?').get(id).descriptionFilm;
     var duree = db.prepare('SELECT dureeFilm FROM Film WHERE idFilm = ?').get(id).dureeFilm;
     var image = db.prepare('SELECT image FROM Film WHERE idFilm = ?').get(id).image ;
     var results = db.prepare('SELECT pseudoUtilisateur, note, date, message FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(id);
+    var noteMoyenne = 0;
+    let i=0;
+    for (i; i<results.length; i++){
+        noteMoyenne = noteMoyenne + results[i].note;
+    }
+    if (noteMoyenne === 0){
+        noteMoyenne = null;
+    }
+    else {
+        noteMoyenne = noteMoyenne / i;
+    }
     return{
         nomFilm : nomFilm,
         dateFilm : dateFilm,
@@ -91,11 +101,30 @@ exports.search = (query) => {
     query = query || "";
 
     var num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
-    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
+    var res = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
     var acteurs = db.prepare('SELECT idActeur FROM A_Joue GROUP BY idActeur ORDER BY idActeur').all();
     var realisateurs = db.prepare('SELECT idRealisateur FROM A_Realise GROUP BY idRealisateur ORDER BY idRealisateur').all();
     var genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
-
+    let i=0;
+    for (i; i<res.length; i++){
+        console.log("entree i", i);
+        var j = 0;
+        var noteMoyenne = 0;
+        var resultsCritiques = db.prepare('SELECT note FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(res[i].idFilm);
+        for (j; j<resultsCritiques.length; j++) {
+            console.log("entree j", j);
+            noteMoyenne = noteMoyenne + resultsCritiques[j].note;
+        }
+        if (noteMoyenne === 0){
+            noteMoyenne = null;
+        }
+        else {
+            noteMoyenne = noteMoyenne / j;
+        }
+        db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res[i].idFilm);
+        console.log("requete");
+    }
+    var results = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
 
     return {
         acteurs : acteurs,
