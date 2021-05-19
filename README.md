@@ -9,8 +9,8 @@ CinéFilm, site communautaire de gestion de films.
 ## Table des matières
 
 1. [Description](#description)
-2. [Fabriqué avec](#Fabriqué avec)
-3. [Fonctionnalités futures](#Fonctionnalités futures)
+2. [Fabriqué avec](#Fabriqué-avec)
+3. [Fonctionnalités futures](#Fonctionnalités-futures)
 4. [Auteurs](#auteurs)
 5. [Github](#Github)
 
