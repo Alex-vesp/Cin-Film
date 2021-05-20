@@ -46,7 +46,12 @@ app.use(function(req, res, next) {
 
 /** POST **/
 
-
+app.post('/pageListe.html', (req, res) =>{
+    console.log("Nouvelle liste");
+    model.addList(req.session.user, req.body.ajoutListe);
+    //ici pageNomDeLaListe
+    res.redirect('/pageListe.html');
+})
 
 app.post('/login', (req, res) => {
     console.log("loginnn");
@@ -57,7 +62,7 @@ app.post('/login', (req, res) => {
         req.session.mdp = req.body.password;
         res.redirect('index.html');
     } else {
-        res.redirect('pageConnexion.html');
+        res.redirect('/pageConnexion.html');
     }
 });
 
@@ -158,7 +163,12 @@ app.get('/pageInscription.html', (req, res) => {
 });
 
 app.get('/pageListe.html', (req, res) => {
-    res.render('pageListe');
+    var load = model.loadList(req.session.user);
+    res.render('pageListe', (load));
+});
+
+app.get('/pageFilmsListe.html', (req, res) => {
+    res.render('pageFilmsListe.html');
 });
 
 app.get('/pageProfil.html', (req, res) => {
@@ -182,5 +192,5 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-app.listen(4003, () => console.log('listening on http://localhost:4003'));
+app.listen(3000, () => console.log('listening on http://localhost:3000'));
 

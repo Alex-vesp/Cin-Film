@@ -5,6 +5,25 @@ const fs = require("fs");
 
 let db = new Sqlite('db.sqlite');
 
+exports.loadList = (id) => {
+    var liste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
+    return{
+        liste : liste
+    }
+}
+
+exports.addList = (id, nouvelleListe) => {
+    var allList = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
+    for (let i = 0; i < allList.length; ++i){
+        if (allList[i].nomListe === nouvelleListe){
+            console.log("Liste déjà existante")
+            return;
+        }
+    }
+    db.prepare('INSERT INTO Liste(nomListe, idUtilisateur) VALUES (?, ?)').run(nouvelleListe, id);
+    console.log('Nouvelle liste créé: ' + nouvelleListe)
+}
+
 
 exports.read = (id) => {
     var nomFilm = db.prepare('SELECT nomFilm FROM Film WHERE idFilm = ?').get(id).nomFilm;
@@ -155,8 +174,9 @@ exports.new_user = function(user, mail, password, nom, prenom, date, genre, acte
     try{
         var exist = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user);
         if (exist === undefined){
-        var results = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre.toUpperCase(), acteur.toUpperCase(), realisateur.toUpperCase());
-        return results.lastIndex;
+            console.log(acteur);
+            var results = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre.toUpperCase(), acteur, realisateur);
+            return results.lastIndex;
         }
         console.log("pseudo déja présent");
         return db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user).idUtilisateur;

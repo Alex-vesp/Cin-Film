@@ -1,26 +1,32 @@
 {{> header}}
 
-<div id="suggestion" class="album py-5 bg-light">
-    <p class="fs-1 text-center">Nom de la liste</p>
+<div id="film" class="album py-5 bg-light">
+    {{#results}}
+    {{#liste}}
+    <p class="fs-1 text-center">{{nomListe}}</p>
+    {{/liste}}
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="Placeholder: Film" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="rgb(33,37,41)"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Titre</text></svg>
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="500" xmlns="" src="{{image}}">
 
                     <div class="card-body">
-                        <p class="card-text"> Description </p>
+                        <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text text-center"> {{nomFilm}} </h5>
+                        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text"> {{descriptionFilm}} </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="pageFilm.html/{{idFilm}}"><button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button></a>
                             </div>
-                            <p class="text">7.4 <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
+                            <h6> Durée : {{dureeFilm}} mins</h6>
+                            <p class="text">{{noteMoyenne}} <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{/results}}
 </div>
 
 {{> footer}}
