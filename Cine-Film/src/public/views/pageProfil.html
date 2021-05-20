@@ -8,29 +8,46 @@
     <div class="row justify-content-md-center">
         <p  class="fs-4 text-center">Mes informations</p>
             <img src="images/person.svg" height="100px">
-        <div class="col-md-auto">
+        <div class="col-sm-1">
+            <h6>Pseudo</h6>
+        </div>
+        <div class="col-sm-1">
+            <h6>Nom</h6>
+        </div>
+        <div class="col-sm-1">
+            <h6>Prenom </h6>
+        </div>
+        <div class="col-sm-2">
+            <h6>Date de naissance</h6>
+        </div>
+        <div class="col-sm-2">
+            <h6>Email</h6>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-sm-1">
             {{#results}}
-            <h6>Pseudo : {{pseudoUtilisateur}}</h6>
+            <p>{{pseudoUtilisateur}}</p>
             {{/results}}
         </div>
-        <div class="col-md-auto">
+        <div class="col-sm-1">
             {{#results}}
-            <h6>Nom : {{nomUtilisateur}}</h6>
+            <p>{{nomUtilisateur}}</p>
             {{/results}}
         </div>
-        <div class="col-md-auto">
+        <div class="col-sm-1">
             {{#results}}
-            <h6>Prenom : {{prenomUtilisateur}}</h6>
+            <p>{{prenomUtilisateur}}</p>
             {{/results}}
         </div>
-        <div class="col-md-auto">
+        <div class="col-sm-2">
             {{#results}}
-            <h6>Date de naissance : {{dateNaissance}}</h6>
+            <p>{{dateNaissance}}</p>
             {{/results}}
         </div>
-        <div class="col-md-auto">
+        <div class="col-sm-2">
             {{#results}}
-            <h6>Email : {{mailUtilisateur}}</h6>
+            <p>{{mailUtilisateur}}</p>
             {{/results}}
         </div>
     </div>
