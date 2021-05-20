@@ -12,12 +12,19 @@ exports.loadList = (id) => {
     }
 }
 
+exports.loadListTitle = (id, nomListe) => {
+    var titreliste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? AND nomListe = ?').get(id, nomListe);
+    return{
+        titreliste : titreliste
+    }
+}
+
 exports.addList = (id, nouvelleListe) => {
     var allList = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
     for (let i = 0; i < allList.length; ++i){
         if (allList[i].nomListe === nouvelleListe){
-            console.log("Liste déjà existante")
-            return;
+
+            return -1;
         }
     }
     db.prepare('INSERT INTO Liste(nomListe, idUtilisateur) VALUES (?, ?)').run(nouvelleListe, id);

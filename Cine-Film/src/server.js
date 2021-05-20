@@ -47,14 +47,17 @@ app.use(function(req, res, next) {
 /** POST **/
 
 app.post('/pageListe.html', (req, res) =>{
-    console.log("Nouvelle liste");
+    if (model.addList(req.session.user, req.body.ajoutListe) === -1){
+        res.status(401).send('Cette liste existe déjà, renseignez en une autre.');
+        return;
+    }
     model.addList(req.session.user, req.body.ajoutListe);
     //ici pageNomDeLaListe
     res.redirect('/pageListe.html');
 })
 
 app.post('/login', (req, res) => {
-    console.log("loginnn");
+    console.log("login");
     const user = model.login(req.body.user, req.body.password);
     if(user != -1) {
         req.session.user = user;
@@ -168,7 +171,9 @@ app.get('/pageListe.html', (req, res) => {
 });
 
 app.get('/pageFilmsListe.html', (req, res) => {
-    res.render('pageFilmsListe.html');
+    var loadTitle = model.loadListTitle(req.session.user, req.ses)
+    console.log('Comment il va?')
+    res.render('pageFilmsListe.html', (loadTitle));
 });
 
 app.get('/pageProfil.html', (req, res) => {
