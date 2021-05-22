@@ -9,6 +9,18 @@
         </div>
     </div>
     <br>
+    <form method="post" action="/pageFilm.html/{{idFilm}}" class="needs-validation" novalidate>
+        <div class="row">
+
+            <div id="inputAjoutTitreListe" class="col-md-6 mb-3">
+                <input name="ajoutListe" type="text" class="form-control" id="titreListeAjout" placeholder="Nom de votre liste dans laquelle ajouter le film" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button id="ajoutliste" type="submit" class="btn btn-sm btn-outline-dark">Ajouter à la liste</button>
+            </div>
+        </div>
+    </form>
+    <br>
     
     <div class="row justify-content-md-left">
         <div class="col-md-auto">
@@ -58,7 +70,7 @@
     <div class="row justify-content-md-left">
         <p>{{descriptionFilm}}</p>
     </div>
-    <p class="fs-1 text-center"><a id="" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
+    <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
 
     <hr class="my-4">
 

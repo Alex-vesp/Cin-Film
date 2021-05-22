@@ -6,16 +6,51 @@ const fs = require("fs");
 let db = new Sqlite('db.sqlite');
 
 exports.loadList = (id) => {
-    var liste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
+    let liste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
     return{
         liste : liste
     }
 }
 
+exports.addFilmToList = (id, nomListe, idFilm) => {
+    let liste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? AND nomListe = ?').get(id, nomListe);
+    if (liste === undefined){
+        return -1;
+    }
+    let film = db.prepare('SELECT nomListe FROM Film_Utilisateur WHERE idUtilisateur = ? AND nomListe = ? AND idFilm = ?').get(id, nomListe, idFilm);
+    console.log(film);
+    if (film !== undefined){
+        return -2;
+    }
+    db.prepare('INSERT INTO Film_Utilisateur (idUtilisateur, idFilm, nomListe) VALUES (?, ?, ?)').run(id, idFilm, nomListe);
+    return 1;
+}
+
 exports.loadListTitle = (id, nomListe) => {
-    var titreliste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? AND nomListe = ?').get(id, nomListe);
+    let film = db.prepare('SELECT idFilm FROM Film_Utilisateur WHERE idUtilisateur = ? AND nomListe = ?').all(id, nomListe);
+    let results = [];
+    for (let i=0; i<film.length ; i++){
+        var res = db.prepare('SELECT idFilm, nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image, noteMoyenne FROM Film WHERE idFilm = ?').get(film[i].idFilm);
+        console.log(res.idFilm);
+        var j = 0;
+        var noteMoyenne = 0;
+        var resultsCritiques = db.prepare('SELECT note FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(res.idFilm);
+        for (j; j<resultsCritiques.length; j++) {
+            noteMoyenne = noteMoyenne + resultsCritiques[j].note;
+        }
+        if (noteMoyenne === 0){
+            noteMoyenne = null;
+        }
+        else {
+            noteMoyenne = noteMoyenne / j;
+        }
+        db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res.idFilm);
+        results.push(db.prepare('SELECT idFilm, nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image, noteMoyenne FROM Film WHERE idFilm = ?').get(film[i].idFilm));
+    }
+    console.log(results);
     return{
-        titreliste : titreliste
+        results : results,
+        nomListe : nomListe,
     }
 }
 
@@ -23,7 +58,6 @@ exports.addList = (id, nouvelleListe) => {
     var allList = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? ORDER BY nomListe').all(id);
     for (let i = 0; i < allList.length; ++i){
         if (allList[i].nomListe === nouvelleListe){
-
             return -1;
         }
     }
@@ -33,6 +67,7 @@ exports.addList = (id, nouvelleListe) => {
 
 
 exports.read = (id) => {
+    let idFilm = id;
     var nomFilm = db.prepare('SELECT nomFilm FROM Film WHERE idFilm = ?').get(id).nomFilm;
     var dateFilm = db.prepare('SELECT  dateFilm FROM Film WHERE idFilm = ?').get(id).dateFilm;
     var realisateursFilm = db.prepare('SELECT realisateursFilm FROM Film WHERE idFilm = ?').get(id).realisateursFilm;
@@ -53,6 +88,7 @@ exports.read = (id) => {
         noteMoyenne = noteMoyenne / i;
     }
     return{
+        idFilm : idFilm,
         nomFilm : nomFilm,
         dateFilm : dateFilm,
         realisateursFilm : realisateursFilm,

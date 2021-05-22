@@ -47,13 +47,18 @@ app.use(function(req, res, next) {
 /** POST **/
 
 app.post('/pageListe.html', (req, res) =>{
+    if (req.body.ajoutListe.length === 0){
+        res.status(401).send('Veuillez renseigner au moins un caractère dans le nom de la liste');
+        return;
+    }
     if (model.addList(req.session.user, req.body.ajoutListe) === -1){
         res.status(401).send('Cette liste existe déjà, renseignez en une autre.');
         return;
     }
+
     model.addList(req.session.user, req.body.ajoutListe);
     //ici pageNomDeLaListe
-    res.redirect('/pageListe.html');
+    res.redirect('/pageFilmsListe.html/:' + req.body.ajoutListe);
 })
 
 app.post('/login', (req, res) => {
@@ -98,6 +103,7 @@ app.post('/pageModifierProfil.html/1', (req, res) => {
     res.redirect('/pageModifierProfil.html');
 });
 
+
 app.post('/pageModifierProfil.html/3', (req, res) => {
     const idActeur = model.searchActeur(req.body.prefAct);
     const idReal = model.searchRealisateur(req.body.prefReal);
@@ -116,6 +122,24 @@ app.post('/pageModifierProfil.html/2', (req, res) => {
     res.redirect('/pageModifierProfil.html');
 });
 
+
+app.post('/pageFilm.html/:id', (req, res) => {
+    if (req.body.ajoutListe.length === 0){
+        res.status(401).send('Veuillez renseigner au moins un caractère dans le nom de la liste');
+        return;
+    }
+    let result = model.addFilmToList(req.session.user, req.body.ajoutListe, req.params.id);
+    if ( result === -1){
+        res.status(401).send('Cette liste n existe pas, renseignez une liste existente');
+        return;
+    }
+    if (result === -2){
+        res.status(401).send('Ce film est déjà présent dans votre liste');
+        return;
+    }
+    model.addFilmToList(req.session.user, req.body.ajoutListe, req.params.id);
+    res.redirect('/pageFilm.html/' + req.params.id);
+});
 
 /**** Routes pour voir les pages du site ****/
 
@@ -170,10 +194,9 @@ app.get('/pageListe.html', (req, res) => {
     res.render('pageListe', (load));
 });
 
-app.get('/pageFilmsListe.html', (req, res) => {
-    var loadTitle = model.loadListTitle(req.session.user, req.ses)
-    console.log('Comment il va?')
-    res.render('pageFilmsListe.html', (loadTitle));
+app.get('/pageFilmsListe.html/:nomlist', (req, res) => {
+    var titreliste = model.loadListTitle(req.session.user, req.params.nomlist);
+    res.render('pageFilmsListe.html', (titreliste));
 });
 
 app.get('/pageProfil.html', (req, res) => {

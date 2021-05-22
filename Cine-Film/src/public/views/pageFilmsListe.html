@@ -1,12 +1,13 @@
 {{> header}}
 
 <div id="film" class="album py-5 bg-light">
-    {{#titreliste}}
-    <p class="fs-1 text-center">{{nomListe}}</p>
-    {{/titreliste}}
-    {{#results}}
+    <p class="fs-1 text-center">Liste : {{nomListe}}</p>
+    <br>
+    <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour aux listes</a></p>
+    <br>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {{#results}}
             <div class="col">
                 <div class="card shadow-sm">
                     <img class="bd-placeholder-img card-img-top" width="100%" height="500" xmlns="" src="{{image}}">
@@ -16,7 +17,7 @@
                         <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text"> {{descriptionFilm}} </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="pageFilm.html/{{idFilm}}"><button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button></a>
+                                <a href="/pageFilm.html/{{idFilm}}"><button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button></a>
                             </div>
                             <h6> Durée : {{dureeFilm}} mins</h6>
                             <p class="text">{{noteMoyenne}} <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
@@ -24,9 +25,9 @@
                     </div>
                 </div>
             </div>
+            {{/results}}
         </div>
     </div>
-    {{/results}}
 </div>
 
 {{> footer}}
