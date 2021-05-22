@@ -9,17 +9,6 @@
         </div>
     </div>
     <br>
-    <form method="post" action="/pageFilm.html/{{idFilm}}" class="needs-validation" novalidate>
-        <div class="row">
-
-            <div id="inputAjoutTitreListe" class="col-md-6 mb-3">
-                <input name="ajoutListe" type="text" class="form-control" id="titreListeAjout" placeholder="Nom de votre liste dans laquelle ajouter le film" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <button id="ajoutliste" type="submit" class="btn btn-sm btn-outline-dark">Ajouter à la liste</button>
-            </div>
-        </div>
-    </form>
     <br>
     
     <div class="row justify-content-md-left">
@@ -70,23 +59,36 @@
     <div class="row justify-content-md-left">
         <p>{{descriptionFilm}}</p>
     </div>
+    <br>
+    <form method="post" action="/pageFilm.html/{{idFilm}}" class="needs-validation" novalidate>
+        <div class="row">
+
+            <div id="inputAjoutTitreListe" class="col-md-6 mb-3">
+                <input name="ajoutListe" type="text" class="form-control" id="titreListeAjout" placeholder="Nom de votre liste dans laquelle ajouter le film" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button id="ajoutliste" type="submit" class="btn btn-sm btn-outline-dark">Ajouter à la liste</button>
+            </div>
+        </div>
+    </form>
+    <br>
     <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
 
     <hr class="my-4">
 
     <h4 class="mb-3 text-center">Ajouter un avis</h4>
 
-    <form>
+    <form method="post" action="/pageFilm.html/nouvelleCritique/{{idFilm}}" class="needs-validation" novalidate>
         <div class="col-12">
             <label for="pseudo" class="form-label">Message</label>
-            <textarea type="text" class="form-control" id="pseudo" placeholder="......" style="height: 100px"></textarea>
+            <textarea name="message" minlength="1" type="text" class="form-control" id="pseudo" placeholder="......" style="height: 100px"></textarea>
         </div>
 
         <br>
 
         <div class="col-md-3">
             <label for="note" class="form-label">Note</label>
-            <select class="form-select" id="note" required>
+            <select name="note" class="form-select" id="note" required>
                 <option value="">Note ...</option>
                 <option>1</option>
                 <option>2</option>
@@ -101,7 +103,11 @@
             </select>
         </div>
 
-        <p class="fs-1 text-center"><a id="ajoutavis" href="" class="btn btn-sm btn-outline-dark">Ajouter</a></p>
+        <br>
+        <div class="d-flex justify-content-center">
+        <button  id="ajoutCritique" type="submit" class="btn btn-sm btn-outline-dark ">Ajouter la critique</button>
+        </div>
+
     </form>
 
     <hr class="my-4">

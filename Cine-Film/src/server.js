@@ -141,6 +141,29 @@ app.post('/pageFilm.html/:id', (req, res) => {
     res.redirect('/pageFilm.html/' + req.params.id);
 });
 
+app.post('/pageFilm.html/nouvelleCritique/:id', (req, res) => {
+    if (req.body.message.length === 0){
+        res.status(401).send('Veuillez renseigner au moins un caractère dans le message');
+        return;
+    }
+    if (req.body.note.length === 0){
+        res.status(401).send('Veuillez renseigner une note valide');
+        return;
+    }
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today =  dd + '/' + mm + '/' + yyyy;
+    let result = model.addCritique(req.session.user, req.params.id, req.body.message, today, req.body.note);
+    if ( result === -1){
+        res.status(401).send('Vous avez déjà renseigné un commentaire sur ce film');
+        return;
+    }
+    res.redirect('/pageFilm.html/' + req.params.id);
+});
+
 /**** Routes pour voir les pages du site ****/
 
 

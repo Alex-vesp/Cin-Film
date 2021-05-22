@@ -26,12 +26,36 @@ exports.addFilmToList = (id, nomListe, idFilm) => {
     return 1;
 }
 
+
+exports.addCritique = (id, idFilm, message, date, note) => {
+    let existing = db.prepare('SELECT idUtilisateur FROM Critique WHERE idUtilisateur = ? AND idFilm = ?').get(id, idFilm);
+    if (existing !== undefined){
+        return -1;
+    }
+    db.prepare('INSERT INTO Critique (idUtilisateur, idFilm, message, date, note) VALUES (?, ?, ?, ?, ?)').run(id, idFilm, message, date, note);
+    var res = db.prepare('SELECT idFilm, nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image, noteMoyenne FROM Film WHERE idFilm = ?').get(idFilm);
+    var j = 0;
+    var noteMoyenne = 0;
+    var resultsCritiques = db.prepare('SELECT note FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(res.idFilm);
+    for (j; j<resultsCritiques.length; j++) {
+        noteMoyenne = noteMoyenne + resultsCritiques[j].note;
+    }
+    if (noteMoyenne === 0){
+        noteMoyenne = null;
+    }
+    else {
+        noteMoyenne = noteMoyenne / j;
+    }
+    db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res.idFilm);
+
+
+}
+
 exports.loadListTitle = (id, nomListe) => {
     let film = db.prepare('SELECT idFilm FROM Film_Utilisateur WHERE idUtilisateur = ? AND nomListe = ?').all(id, nomListe);
     let results = [];
     for (let i=0; i<film.length ; i++){
         var res = db.prepare('SELECT idFilm, nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image, noteMoyenne FROM Film WHERE idFilm = ?').get(film[i].idFilm);
-        console.log(res.idFilm);
         var j = 0;
         var noteMoyenne = 0;
         var resultsCritiques = db.prepare('SELECT note FROM Critique C, Utilisateur U WHERE C.idFilm = ? AND  U.idUtilisateur = C.idUtilisateur ORDER BY date').all(res.idFilm);
