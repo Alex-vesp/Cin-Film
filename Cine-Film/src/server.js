@@ -87,11 +87,12 @@ app.post('/pageAjouterFilm.html', (req, res) => {
 
 app.post('/pageInscription.html', (req, res) => {
     if (req.body.mdp === req.body.mdpconfirm) {
-        const idActeur = model.searchActeur(req.body.prefAct);
-        const idReal = model.searchRealisateur(req.body.prefReal);
-        const user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, req.body.prefGenre, idActeur, idReal );
+        let idActeur = model.searchActeur(req.body.prefAct);
+        let idReal = model.searchRealisateur(req.body.prefReal);
+        let nomGenre = model.searchGenre(req.body.prefGenre);
+        let user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, nomGenre, idActeur, idReal);
         if(user != -1) {
-            res.redirect('/index.html');
+            res.redirect('/pageConnexion.html');
         } else {
             res.redirect('/pageInscription.html');
         }
@@ -228,7 +229,13 @@ app.get('/pageProfil.html', (req, res) => {
 });
 
 app.get('/pageSuggestions.html', (req, res) => {
-    res.render('pageSuggestions');
+    let found = model.loadSuggestions(req.session.user);
+    if (found.length === 0){
+        res.status(401).send('Nous sommes désolés, nous n avons aucunes suggestions à vous faire, changez vos préférences sur votre profil en fonction de ce que nous disposons pour de meilleures suggestions');
+        return;
+    }
+    console.log(found)
+    res.render('pageSuggestions', (found));
 });
 
 app.get('/deconnexion.html', (req, res) => {
@@ -243,5 +250,5 @@ app.get('/deconnexion.html', (req, res) => {
 
 
 
-app.listen(3000, () => console.log('listening on http://localhost:3000'));
+app.listen(5002, () => console.log('listening on http://localhost:5002'));
 
