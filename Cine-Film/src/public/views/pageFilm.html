@@ -60,6 +60,7 @@
         <p>{{descriptionFilm}}</p>
     </div>
     <br>
+    {{#name}}
     <form method="post" action="/pageFilm.html/{{idFilm}}" class="needs-validation" novalidate>
         <div class="row">
 
@@ -71,6 +72,7 @@
             </div>
         </div>
     </form>
+    {{/name}}
     <br>
     <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
 
