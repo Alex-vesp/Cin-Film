@@ -58,7 +58,7 @@ app.post('/pageListe.html', (req, res) =>{
 
     model.addList(req.session.user, req.body.ajoutListe);
     //ici pageNomDeLaListe
-    res.redirect('/pageFilmsListe.html/:' + req.body.ajoutListe);
+    res.redirect('/pageFilmsListe.html/' + req.body.ajoutListe);
 })
 
 app.post('/login', (req, res) => {

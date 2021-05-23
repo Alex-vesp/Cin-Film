@@ -18,7 +18,6 @@ exports.addFilmToList = (id, nomListe, idFilm) => {
         return -1;
     }
     let film = db.prepare('SELECT nomListe FROM Film_Utilisateur WHERE idUtilisateur = ? AND nomListe = ? AND idFilm = ?').get(id, nomListe, idFilm);
-    console.log(film);
     if (film !== undefined){
         return -2;
     }
@@ -71,7 +70,6 @@ exports.loadListTitle = (id, nomListe) => {
         db.prepare('UPDATE Film SET noteMoyenne = ? WHERE idFilm = ?').run(noteMoyenne, res.idFilm);
         results.push(db.prepare('SELECT idFilm, nomFilm, dateFilm, acteursFilm, realisateursFilm, descriptionFilm, dureeFilm, image, noteMoyenne FROM Film WHERE idFilm = ?').get(film[i].idFilm));
     }
-    console.log(results);
     return{
         results : results,
         nomListe : nomListe,
@@ -197,7 +195,6 @@ exports.loadSuggestions  = (id) => {
             results.push(film);
         }
     }
-    console.log(results);
     return {
         results : results,
     }
@@ -251,7 +248,6 @@ exports.ajouterFilm = function(titre, date, realisateurs, acteurs, description, 
 }
 
 exports.ajouter = function(listeActeurs, listeRealisateurs, listeGenres, idFilm){
-    console.log(listeActeurs[0].toUpperCase());
 
     for (let i=0; i<listeActeurs.length; i++){
         db.prepare('INSERT INTO A_Joue (idFilm, nomActeur) VALUES (?, ?)').run(idFilm, listeActeurs[i].toUpperCase());
