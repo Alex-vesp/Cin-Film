@@ -231,6 +231,73 @@ exports.searchGenre = (genre) => {
     return results.nomGenre;
 };
 
+exports.searchTriGenre = (genre) => {
+    let results = db.prepare('SELECT idFilm FROM Genre WHERE nomGenre = ? GROUP BY idFilm').all(genre.toUpperCase());
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchTriActeur = (acteur) => {
+    console.log(acteur);
+    let results = db.prepare('SELECT idFilm FROM A_Joue WHERE nomActeur = ? GROUP BY idFilm').all(acteur.toUpperCase());
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchTriReal = (real) => {
+    let results = db.prepare('SELECT idFilm FROM A_Realise WHERE nomRealisateur = ? GROUP BY idFilm').all(real.toUpperCase());
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchTriAnnee = (annee) => {
+    let anneeFin = annee + "-12-31";
+    let anneeDebut = annee + "-01-01";
+    let results = db.prepare('SELECT idFilm FROM Film WHERE dateFilm > ? AND dateFilm < ? GROUP BY idFilm').all(anneeDebut, anneeFin);
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchInfTriAnnee = (annee) => {
+    annee = annee + "-12-31";
+    let results = db.prepare('SELECT idFilm FROM Film WHERE dateFilm <= ? GROUP BY idFilm').all(annee);
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchTriNote = (note) => {
+    let results = db.prepare('SELECT idFilm FROM Film WHERE noteMoyenne >= ? GROUP BY idFilm').all(note);
+    if (results === undefined) return -1;
+    return {
+        results : results,
+    }
+};
+
+exports.searchFilms = (finalListe) => {
+    let results = [];
+    for (let i = 0; i < finalListe.length ; i++){
+        let film = db.prepare('SELECT F.idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film F WHERE F.idFilm = ? GROUP BY F.idFilm ORDER BY F.idFilm').get(finalListe[i]);
+        if (film !== undefined){
+            results.push(film);
+        }
+    }
+    return {
+        results : results,
+    }
+};
+
+
+
 
 exports.ajouterFilm = function(titre, date, realisateurs, acteurs, description, duree, image, genres) {
     let listeActeurs = acteurs.split(",");

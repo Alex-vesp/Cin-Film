@@ -1,0 +1,58 @@
+{{> header}}
+
+<div id="tri" class="container px-4 " style="margin-top: 5px">
+    <nav class="navbar navbar-expand-lg navbar ">
+        <div class="container-fluid">
+            <p class="navbar-brand">Trier</p>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form method="post" action="/note">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" style="margin-left: 25px">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="TrieNote">Note</label>
+                                <select name="note" class="form-select-focus-1200" id="TrieNote">
+                                    <option selected>Tous ... </option>
+                                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="nav-item" style="margin-left: 25px">
+                            <button style="height: 70%" onclick="" type="submit" class="btn btn-sm btn-outline-dark">Valider</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Index-->
+<div id="film" class="album py-5 bg-light">
+    <p class="fs-1 text-center">Résultat de votre tri :</p>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {{#results}}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="500" xmlns="" src="{{image}}">
+
+                    <div class="card-body">
+                        <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text text-center"> {{nomFilm}} </h5>
+                        <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text"> {{descriptionFilm}} </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="pageFilm.html/{{idFilm}}"><button onclick="openFilmIndiv()" type="button" class="btn btn-sm btn-outline-dark">Voir plus ...</button></a>
+                            </div>
+                            <h6> Durée : {{dureeFilm}} mins</h6>
+                            <p class="text">{{noteMoyenne}} <img src="../images/etoile_jaune.png" style="height: 27px; width: 27px;" class="bi bi-star" alt="etoile"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/results}}
+        </div>
+    </div>
+</div>
+
+{{> footer}}

@@ -2,8 +2,8 @@
 
 {{#name}}
 <!--Menu Tri-->
-<div id="tri" class="container px-4 bg-light" style="margin-top: 5px">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div id="tri" class="container px-4 " style="margin-top: 5px">
+    <nav class="navbar navbar-expand-lg navbar ">
         <div class="container-fluid">
             <p class="navbar-brand">Trier</p>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -12,7 +12,7 @@
                         <li class="nav-item">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Genre</label>
-                                <select class="form-select-focus-1200" id="inputGroupSelect01">
+                                <select name="genre" class="form-select-focus-1200" id="inputGroupSelect01">
                                     <option selected>Tous ... </option>
                                     {{#genres}}
                                     <option> {{nomGenre}}</option>
@@ -23,7 +23,7 @@
                         <li class="nav-item" style="margin-left: 25px">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Acteurs</label>
-                                <select class="form-select-focus-1200" id="inputGroupSelect8">
+                                <select name="acteur" class="form-select-focus-1200" id="inputGroupSelect8">
                                     <option selected>Tous ... </option>
                                     {{#acteurs}}
                                     <option> {{nomActeur}}</option>
@@ -34,7 +34,7 @@
                         <li class="nav-item" style="margin-left: 25px">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Réalisateur</label>
-                                <select class="form-select-focus-1200" id="inputGroupSelect02">
+                                <select name="real" class="form-select-focus-1200" id="inputGroupSelect02">
                                     <option selected>Tous ... </option>
                                     {{#realisateurs}}
                                     <option> {{nomRealisateur}}</option>
@@ -45,8 +45,8 @@
                         <li class="nav-item" style="margin-left: 25px">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Année</label>
-                                <select class="form-select-focus-1200" id="inputGroupSelect03">
-                                    <option selected>Tous ... </option><option selected> < 1950</option><option selected> < 1960</option><option selected> < 1970</option>
+                                <select name="annee" class="form-select-focus-1200" id="inputGroupSelect03">
+                                    <option selected> < 1950</option><option selected> < 1960</option><option selected> < 1970</option>
                                     <option selected> < 1980</option><option selected> 1981</option><option selected> 1982</option><option selected> 1983</option>
                                     <option selected> 1984</option><option selected> 1985</option><option selected> 1986</option>
                                     <option selected> 1987</option><option selected>1988</option><option selected>1989</option><option selected> 1990</option>
@@ -58,14 +58,14 @@
                                     <option selected>2009</option><option selected>2010</option><option selected>2011</option><option selected>2012</option>
                                     <option selected>2013</option><option selected>2014</option><option selected>2015</option><option selected>2016</option>
                                     <option selected>2017</option><option selected>2018</option><option selected>2019</option>
-                                    <option selected>2020</option><option selected>2021</option>
+                                    <option selected>2020</option><option selected>2021</option><option selected>Tous ... </option>
                                 </select>
                             </div>
                         </li>
                         <li class="nav-item" style="margin-left: 25px">
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="TrieNote">Note</label>
-                                <select class="form-select-focus-1200" id="TrieNote">
+                                <select name="note" class="form-select-focus-1200" id="TrieNote">
                                     <option selected>Tous ... </option>
                                     <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
                                     <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
@@ -73,7 +73,7 @@
                             </div>
                         </li>
                         <li class="nav-item" style="margin-left: 25px">
-                            <button style="height: 70%" onclick="" type="button" class="btn btn-sm btn-outline-dark">Valider</button>
+                            <button style="height: 70%" onclick="" type="submit" class="btn btn-sm btn-outline-dark">Valider</button>
                         </li>
                     </ul>
                 </form>

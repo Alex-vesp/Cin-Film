@@ -59,7 +59,89 @@ app.post('/pageListe.html', (req, res) =>{
     model.addList(req.session.user, req.body.ajoutListe);
     //ici pageNomDeLaListe
     res.redirect('/pageFilmsListe.html/' + req.body.ajoutListe);
-})
+});
+
+
+app.post('/index.html', (req, res) =>{
+    let liste = [];
+    if (req.body.genre !== "Tous ..."){
+        let resultGenre = model.searchTriGenre(req.body.genre);
+        if (resultGenre !== -1){
+            for (let i = 0; i < resultGenre.results.length; i++){
+                liste.push(resultGenre.results[i].idFilm);
+            }
+        }
+    }
+    if (req.body.acteur !== "Tous ..."){
+        let resultActeur = model.searchTriActeur(req.body.acteur);
+        if (resultActeur !== -1){
+            for (let i = 0; i < resultActeur.results.length; i++){
+                liste.push(resultActeur.results[i].idFilm);
+            }
+        }
+    }
+    if (req.body.real !== "Tous ..."){
+        let resultReal = model.searchTriReal(req.body.real);
+        if (resultReal !== -1){
+            for (let i = 0; i < resultReal.results.length; i++){
+                liste.push(resultReal.results[i].idFilm);
+            }
+        }
+    }
+    if (req.body.annee !== "Tous ..."){
+        if (req.body.annee.charAt(0) === "<"){
+            let annee = req.body.annee.split(" ")[1];
+            let resultAnnee = model.searchInfTriAnnee(annee);
+            if (resultAnnee !== -1){
+                for (let i = 0; i < resultAnnee.results.length; i++){
+                    liste.push(resultAnnee.results[i].idFilm);
+                }
+            }
+        }
+        else {
+            let resultAnnee = model.searchTriAnnee(req.body.annee);
+            if (resultAnnee !== -1){
+                for (let i = 0; i < resultAnnee.results.length; i++){
+                    liste.push(resultAnnee.results[i].idFilm);
+                }
+            }
+        }
+    }
+    if (req.body.note !== "Tous ..."){
+        let resultNote = model.searchTriNote(req.body.note);
+        if (resultNote !== -1){
+            for (let i = 0; i < resultNote.results.length; i++){
+                liste.push(resultNote.results[i].idFilm);
+            }
+        }
+    }
+    if (liste.length === 0){
+        res.status(401).send('Nous ne trouvons aucun film correspondant à vos filtres');
+    }
+    let finalListe = [...new Set(liste)];
+    let results = model.searchFilms(finalListe)
+    res.render('indexTri', (results));
+});
+
+app.post('/note', (req, res) =>{
+    let liste = [];
+    if (req.body.note !== "Tous ..."){
+        let resultNote = model.searchTriNote(req.body.note);
+        if (resultNote !== -1){
+            for (let i = 0; i < resultNote.results.length; i++){
+                liste.push(resultNote.results[i].idFilm);
+            }
+        }
+    }
+    if (liste.length === 0){
+        res.status(401).send('Veuillez renseigner une note si vous voulez trier par note');
+    }
+    let finalListe = [...new Set(liste)];
+    let results = model.searchFilms(finalListe)
+    console.log(results);
+    res.render('indexTri', (results));
+});
+
 
 app.post('/login', (req, res) => {
     console.log("login");
