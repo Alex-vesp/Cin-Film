@@ -87,18 +87,31 @@
                 <div class="row g-3">
                     <div class="col-sm-4">
                         <label for="prefGenre" class="form-label">Genre préféré</label>
-                        <input type="text" class="form-control" name="prefGenre" id="prefGenre" placeholder="Genre" value="">
+                        <select name="prefGenre" id="prefGenre" class="form-select-focus-1200" required>
+                            {{#realisateurs}}
+                            <option> {{nomRealisateur}}</option>
+                            {{/realisateurs}}
+                        </select>
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefReal" class="form-label">Réalisateur préféré</label>
-                        <input type="text" class="form-control" name="prefReal" id="prefReal" placeholder="Réalisateur" value="">
+                        <select name="prefReal" id="prefReal" class="form-select-focus-1200" required>
+                            {{#realisateurs}}
+                            <option> {{nomRealisateur}}</option>
+                            {{/realisateurs}}
+                        </select>
                     </div>
 
                     <div class="col-sm-4">
                         <label for="prefAct" class="form-label">Acteur préféré</label>
-                        <input type="text" class="form-control" name="prefAct" id="prefAct" placeholder="Acteur" value="" required>
+                        <select name="prefAct" id="prefAct" class="form-select-focus-1200" required>
+                            {{#realisateurs}}
+                            <option> {{nomRealisateur}}</option>
+                            {{/realisateurs}}
+                        </select>
                     </div>
+                </div>
                 </div>
                 <br>
                 <button class="w-100 btn btn-lg btn-outline-dark " type="submit">Modifier les preférences</button>

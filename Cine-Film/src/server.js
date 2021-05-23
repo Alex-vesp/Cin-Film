@@ -115,9 +115,6 @@ app.post('/index.html', (req, res) =>{
             }
         }
     }
-    if (liste.length === 0){
-        res.status(401).send('Nous ne trouvons aucun film correspondant à vos filtres');
-    }
     let finalListe = [...new Set(liste)];
     let results = model.searchFilms(finalListe)
     res.render('indexTri', (results));
@@ -160,7 +157,7 @@ app.post('/pageAjouterFilm.html', (req, res) => {
     console.log("ajout film");
     let image;
     if(req.body.image === ""){
-        image = "https://sobusygirls.fr/uploads/2012/02/inconnue2-2.jpg";
+        image = "images/popcorn.png";
     }
     else image = req.body.image;
     const user = model.ajouterFilm(req.body.titrefilm, req.body.datesortiefilm, req.body.realisateurs, req.body.acteurs, req.body.description, req.body.duree, image, req.body.genres);
@@ -274,7 +271,8 @@ app.get('/pageAjouterFilm.html', (req, res) => {
 });
 
 app.get('/pageModifierProfil.html', (req, res) => {
-    res.render('pageModifierProfil');
+    var found = model.loadInscription();
+    res.render('pageModifierProfil', (found));
 });
 
 app.get('/search.html', (req, res) => {
@@ -292,7 +290,8 @@ app.get('/pageFilmListe.html', (req, res) => {
 });
 
 app.get('/pageInscription.html', (req, res) => {
-    res.render('pageInscription');
+    var found = model.loadInscription();
+    res.render('pageInscription', (found));
 });
 
 app.get('/pageListe.html', (req, res) => {

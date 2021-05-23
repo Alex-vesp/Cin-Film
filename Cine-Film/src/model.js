@@ -12,6 +12,19 @@ exports.loadList = (id) => {
     }
 }
 
+exports.loadInscription = () => {
+
+    let acteurs = db.prepare('SELECT nomActeur FROM A_Joue GROUP BY nomActeur ORDER BY idActeur').all();
+    let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY idRealisateur').all();
+    let genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
+
+    return {
+        acteurs : acteurs,
+        realisateurs : realisateurs,
+        genres : genres,
+    };
+}
+
 exports.addFilmToList = (id, nomListe, idFilm) => {
     let liste = db.prepare('SELECT nomListe FROM Liste WHERE idUtilisateur = ? AND nomListe = ?').get(id, nomListe);
     if (liste === undefined){
