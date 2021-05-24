@@ -14,9 +14,9 @@ exports.loadList = (id) => {
 
 exports.loadInscription = () => {
 
-    let acteurs = db.prepare('SELECT nomActeur FROM A_Joue GROUP BY nomActeur ORDER BY idActeur').all();
-    let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY idRealisateur').all();
-    let genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
+    let acteurs = db.prepare('SELECT nomActeur FROM A_Joue GROUP BY nomActeur ORDER BY nomActeur').all();
+    let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY nomRealisateur').all();
+    let genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre ORDER BY nomGenre').all();
 
 
     return {
@@ -157,8 +157,8 @@ exports.search = (query) => {
 
     let num_found = db.prepare('SELECT count(*) FROM Film WHERE nomFilm LIKE ?').get('%' + query + '%')['count(*)'];
     let res = db.prepare('SELECT idFilm, nomFilm, descriptionFilm, noteMoyenne, dureeFilm, image FROM Film WHERE nomFilm LIKE ? ORDER BY idFilm').all('%' + query + '%');
-    let acteurs = db.prepare('SELECT nomActeur FROM A_Joue GROUP BY nomActeur ORDER BY idActeur').all();
-    let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY idRealisateur').all();
+    let acteurs = db.prepare('SELECT nomActeur FROM A_Joue GROUP BY nomActeur ORDER BY nomActeur').all();
+    let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY nomRealisateur').all();
     let genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
     let i=0;
     for (i; i<res.length; i++){
