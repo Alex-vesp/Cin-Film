@@ -126,7 +126,7 @@ app.post('/login', (req, res) => {
     if(user !== -1) {
         req.session.user = user;
         req.session.name = req.body.user;
-        req.session.mdp = req.body.password;
+        req.session.mdp = getHashedPassword(req.body.password);
         res.redirect('index.html');
     } else {
         res.redirect('/pageConnexion.html');
@@ -203,7 +203,7 @@ app.post('/pageModifierProfil.html/3', (req, res) => {
 });
 
 app.post('/pageModifierProfil.html/2', (req, res) => {
-    if (req.body.mdpactuel === req.session.mdp){
+    if (getHashedPassword(req.body.mdpactuel) === req.session.mdp){
         if (req.body.nvxmdp === req.body.nvxmdpconfirm){
             model.update_userMdp(req.session.user, getHashedPassword(req.body.nvxmdp));
             req.session.mdp = getHashedPassword(req.body.nvxmdp);
