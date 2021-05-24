@@ -10,9 +10,8 @@ CinéFilm, site communautaire de gestion de films.
 
 1. [Description](#description)
 2. [Fabriqué avec](#Fabriqué-avec)
-3. [Fonctionnalités futures](#Fonctionnalités-futures)
-4. [Auteurs](#auteurs)
-5. [Github](#Github)
+3. [Auteurs](#auteurs)
+4. [Github](#Github)
 
 ***
 
