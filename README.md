@@ -43,11 +43,6 @@ Une partie suggestion permet de suggérer aux utilisateurs des films selon leurs
 * [Express](https://expressjs.com/fr/) - Framework applications web
 * [Better-sqlite3](https://www.npmjs.com/package/better-sqlite3) - Système de base de données
 
-***
-
-## Fonctionnalités futures
-
-
 
 ***
 
