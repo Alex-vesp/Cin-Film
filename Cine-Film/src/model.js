@@ -18,11 +18,12 @@ exports.loadInscription = () => {
     let realisateurs = db.prepare('SELECT nomRealisateur FROM A_Realise GROUP BY nomRealisateur ORDER BY idRealisateur').all();
     let genres = db.prepare('SELECT nomGenre FROM Genre GROUP BY nomGenre').all();
 
+
     return {
         acteurs : acteurs,
         realisateurs : realisateurs,
         genres : genres,
-    };
+    }
 }
 
 exports.addFilmToList = (id, nomListe, idFilm) => {

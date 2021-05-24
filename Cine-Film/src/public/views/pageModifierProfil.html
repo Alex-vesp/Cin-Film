@@ -87,16 +87,16 @@
             <form method="post" action="/pageModifierProfil.html/3" class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-4">
-                        <label for="prefGenre" class="form-label">Genre préféré</label>
+                        <label for="prefGenre" class="form-label">Genre préféré : </label>
                         <select name="prefGenre" id="prefGenre" class="form-select-focus-1200" required>
-                            {{#realisateurs}}
-                            <option> {{nomRealisateur}}</option>
-                            {{/realisateurs}}
+                            {{#genres}}
+                            <option> {{nomGenre}}</option>
+                            {{/genres}}
                         </select>
                     </div>
 
                     <div class="col-sm-4">
-                        <label for="prefReal" class="form-label">Réalisateur préféré</label>
+                        <label for="prefReal" class="form-label">Réalisateur préféré : </label>
                         <select name="prefReal" id="prefReal" class="form-select-focus-1200" required>
                             {{#realisateurs}}
                             <option> {{nomRealisateur}}</option>
@@ -105,11 +105,11 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <label for="prefAct" class="form-label">Acteur préféré</label>
+                        <label for="prefAct" class="form-label">Acteur préféré : </label>
                         <select name="prefAct" id="prefAct" class="form-select-focus-1200" required>
-                            {{#realisateurs}}
-                            <option> {{nomRealisateur}}</option>
-                            {{/realisateurs}}
+                            {{#acteurs}}
+                            <option> {{nomActeur}}</option>
+                            {{/acteurs}}
                         </select>
                     </div>
                 </div>
