@@ -52,21 +52,6 @@ Vous pouvez enfin cliquer sur le lien localhost affiché et utiliser le site com
 
 ***
 
-## Configuration
-
-Afin de lancer le site en localhost, il faut installer les modules NodeJs, Express et Sqlite.
-Pour cela, dans le terminal du projet, utiliser la commande:
-```bash
-npm install
-```
-Attendez la fin de l'installation puis enfin lancez le site avec la commande
-```bash
-node server.js
-```
-Vous pouvez enfin cliquer sur le lien localhost affiché et utiliser le site comme vous le souhaitez!
-
-***
-
 ## Fabriqué avec
 
 * [NodeJS](https://nodejs.org/en/) - Plateforme asynchrone 
