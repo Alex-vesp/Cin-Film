@@ -196,7 +196,7 @@ app.post('/pageModifierProfil.html/2', (req, res) => {
         if (req.body.nvxmdp === req.body.nvxmdpconfirm){
             model.update_userMdp(req.session.user, req.body.nvxmdp);
         }
-        else console.log("les 2 mdp de confirmation ne sont pas les memes");
+        else console.log("les 2 mdp de confirmation ne sont pas les memes");res.status(401).send("Il n'est pas possible de supprimer un utilisateur qui n'existe pas");
     }
     else console.log("le mdp n'est pas celui de l'utilisateur")
     res.redirect('/pageModifierProfil.html');
@@ -204,7 +204,7 @@ app.post('/pageModifierProfil.html/2', (req, res) => {
 
 app.post('/pageSuppressionProfil.html', (req, res) =>{
     if (model.supprimerUtilisateur(req.session.user) === -1){
-        res.status(401).send("Il n'est pas possible de supprimer un utilisateur qui n'existe pas")
+        res.status(401).send("Il n'est pas possible de supprimer un utilisateur qui n'existe pas");
     }
     model.supprimerUtilisateur(req.session.user)
     req.session = null;
