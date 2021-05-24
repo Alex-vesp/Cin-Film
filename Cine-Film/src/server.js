@@ -117,7 +117,6 @@ app.post('/index.html', (req, res) =>{
 });
 
 app.post('/login', (req, res) => {
-    console.log("login");
     const user = model.login(req.body.user, req.body.password);
     if(user !== -1) {
         req.session.user = user;
@@ -130,13 +129,17 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/pageAjouterFilm.html', (req, res) => {
-    console.log("ajout film");
     let image;
     if(req.body.image === ""){
         image = "images/popcorn.png";
     }
     else image = req.body.image;
+    if (req.body.titrefilm.length === 0 || req.body.datesortiefilm.length === 0 || req.body.realisateurs.length === 0 || req.body.acteurs.length === 0 || req.body.duree.length === 0 || req.body.genres.length === 0 ){
+        res.status(401).send('Un des champs requis est vide');
+        return;
+    }
     const user = model.ajouterFilm(req.body.titrefilm, req.body.datesortiefilm, req.body.realisateurs, req.body.acteurs, req.body.description, req.body.duree, image, req.body.genres);
+    if (user === -1 ) res.status(401).send('Film déjà présent dans la base de donnée !');
     res.redirect('index.html');
 });
 
@@ -178,6 +181,9 @@ app.post('/pageModifierProfil.html/1', (req, res) => {
     if (update === -2){
         res.status(401).send('Le pseudo choisi est déjà utilisé par un autre utilisateur');
     }
+    if (update === -3){
+        res.status(401).send('Veuillez renseigner un des champs');
+    }
     if (update === 0){
         res.redirect('/pageModifierProfil.html');
     }
@@ -195,11 +201,12 @@ app.post('/pageModifierProfil.html/2', (req, res) => {
     if (req.body.mdpactuel === req.session.mdp){
         if (req.body.nvxmdp === req.body.nvxmdpconfirm){
             model.update_userMdp(req.session.user, req.body.nvxmdp);
+            req.session.mdp = req.body.nvxmdp;
+            res.redirect('/pageModifierProfil.html');
         }
-        else console.log("les 2 mdp de confirmation ne sont pas les memes");res.status(401).send("Il n'est pas possible de supprimer un utilisateur qui n'existe pas");
+        res.status(401).send("les 2 mdp de confirmation ne sont pas les memes");
     }
-    else console.log("le mdp n'est pas celui de l'utilisateur")
-    res.redirect('/pageModifierProfil.html');
+    else res.status(401).send("le mdp n'est pas celui de l'utilisateur");
 });
 
 app.post('/pageSuppressionProfil.html', (req, res) =>{
@@ -264,7 +271,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {
-    var found = model.search(req.query.query);
+    let found = model.search(req.query.query);
     res.render('index', found);
 });
 
@@ -281,12 +288,12 @@ app.get('/pageAjouterFilm.html', (req, res) => {
 });
 
 app.get('/pageModifierProfil.html', (req, res) => {
-    var found = model.loadInscription();
+    let found = model.loadInscription();
     res.render('pageModifierProfil', (found));
 });
 
 app.get('/search.html', (req, res) => {
-    var entry = model.search(req.query.query);
+    let entry = model.search(req.query.query);
     res.render('search', (entry));
 });
 

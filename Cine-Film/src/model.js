@@ -98,7 +98,6 @@ exports.addList = (id, nouvelleListe) => {
         }
     }
     db.prepare('INSERT INTO Liste(nomListe, idUtilisateur) VALUES (?, ?)').run(nouvelleListe, id);
-    console.log('Nouvelle liste créé: ' + nouvelleListe)
 }
 
 
@@ -333,7 +332,7 @@ exports.ajouterFilm = function(titre, date, realisateurs, acteurs, description, 
         exports.ajouter(listeActeurs, listeRealisateurs, listeGenres, result);
         return result;
     }
-    console.log("film déja présent");
+    return -1;
     return db.prepare('SELECT idFilm FROM Film WHERE nomFilm = ?').get(titre).idFilm;
 }
 
@@ -381,25 +380,22 @@ exports.new_user = function(user, mail, password, nom, prenom, date, genre, acte
 }
 
 exports.update_userMdp = function(id, mdp) {
-    try {
-        db.prepare('UPDATE Utilisateur SET mdpUtilisateur = ?  WHERE idUtilisateur = ?').run(mdp, id);
-    }
-    catch (e){
-        console.log(e);
-    }
+    db.prepare('UPDATE Utilisateur SET mdpUtilisateur = ?  WHERE idUtilisateur = ?').run(mdp, id);
 }
 
 exports.update_userInfos = function(id, pseudo, nom, prenom, email, date) {
+    let found = false;
     if (pseudo.length === 0 ) pseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).pseudoUtilisateur;
-    console.log(pseudo);
+    else found = true;
     if (nom.length === 0 ) nom = db.prepare('SELECT nomUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).nomUtilisateur;
-    console.log(nom);
+    else found = true;
     if (prenom.length === 0 ) prenom = db.prepare('SELECT prenomUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).prenomUtilisateur;
-    console.log(prenom);
+    else found = true;
     if (email.length === 0 ) email = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).mailUtilisateur;
-    console.log(email);
+    else found = true;
     if (date.length === 0 ) date = db.prepare('SELECT dateNaissance FROM Utilisateur WHERE idUtilisateur = ?').get(id).dateNaissance;
-    console.log(date);
+    else found = true;
+    if (found === false) return -3;
     let existpseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND idUtilisateur != ?').get(pseudo, id);
     if (existpseudo === undefined){
         var existemail = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE mailUtilisateur = ? AND idUtilisateur != ?').get(email, id);
@@ -410,16 +406,9 @@ exports.update_userInfos = function(id, pseudo, nom, prenom, email, date) {
         return -1;
     }
     return -2;
-
-
 }
 
 exports.update_userPref = function(id, genre, acteur, realisateur) {
-    try {
-        db.prepare('UPDATE Utilisateur SET nomGenre = ?, idActeur = ?, idRealisateur = ?  WHERE idUtilisateur = ?').run(genre, acteur, realisateur, id);
-    }
-    catch (e){
-        console.log(e);
-    }
+    db.prepare('UPDATE Utilisateur SET nomGenre = ?, idActeur = ?, idRealisateur = ?  WHERE idUtilisateur = ?').run(genre, acteur, realisateur, id);
 }
 
