@@ -341,7 +341,6 @@ exports.ajouter = function(listeActeurs, listeRealisateurs, listeGenres, idFilm)
 
     for (let i=0; i<listeActeurs.length; i++){
         db.prepare('INSERT INTO A_Joue (idFilm, nomActeur) VALUES (?, ?)').run(idFilm, listeActeurs[i].toUpperCase());
-        console.log("acteur ajouté");
     }
 
     for (let i=0; i<listeRealisateurs.length; i++){
@@ -360,19 +359,25 @@ exports.login = function(user, password) {
 }
 
 exports.new_user = function(user, mail, password, nom, prenom, date, genre, acteur, realisateur) {
-    try{
-        let exist = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user);
-        if (exist === undefined){
-            let results = db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre.toUpperCase(), acteur, realisateur);
-            return results.lastIndex;
-        }
-        console.log("pseudo déja présent");
-        return db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user).idUtilisateur;
-    }
-    catch (e){
-        console.log(e);
-    }
 
+    let today = new Date();
+    let yyyy = today.getFullYear();
+    let yearDate = date.split("-")[0];
+
+
+    if (yyyy - yearDate < 13){
+        return -3;
+    }
+    let existpseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user);
+    if (existpseudo === undefined){
+        let existmail = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE mailUtilisateur = ?').get(mail);
+        if (existmail === undefined){
+            db.prepare('INSERT INTO Utilisateur (pseudoUtilisateur, mailUtilisateur, mdpUtilisateur, nomUtilisateur, prenomUtilisateur, dateNaissance, nomGenre, idActeur, idRealisateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(user, mail, password, nom, prenom, date, genre.toUpperCase(), acteur, realisateur);
+            return db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ?').get(user).pseudoUtilisateur;
+        }
+        return -1;
+    }
+    return -2;
 }
 
 exports.update_userMdp = function(id, mdp) {

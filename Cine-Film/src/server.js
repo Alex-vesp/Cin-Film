@@ -119,7 +119,7 @@ app.post('/index.html', (req, res) =>{
 app.post('/login', (req, res) => {
     console.log("login");
     const user = model.login(req.body.user, req.body.password);
-    if(user != -1) {
+    if(user !== -1) {
         req.session.user = user;
         req.session.name = req.body.user;
         req.session.mdp = req.body.password;
@@ -145,12 +145,28 @@ app.post('/pageInscription.html', (req, res) => {
         let idActeur = model.searchActeur(req.body.prefAct);
         let idReal = model.searchRealisateur(req.body.prefReal);
         let nomGenre = model.searchGenre(req.body.prefGenre);
-        let user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, nomGenre, idActeur, idReal);
-        if(user != -1) {
-            res.redirect('/pageConnexion.html');
-        } else {
-            res.redirect('/pageInscription.html');
+        if (req.body.pseudo.length === 0 || req.body.mail.length === 0 || req.body.mdp.length === 0 || req.body.nom.length === 0 || req.body.prenom.length === 0 || req.body.dateN.length === 0 || nomGenre.length === 0 || idActeur.length === 0 || idReal.length === 0 ){
+            res.status(401).send('Un des champs requis est vide');
+            return;
         }
+        let user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, nomGenre, idActeur, idReal);
+        if (user === -1) {
+            res.status(401).send('L adresse mail est déjà utilisée par un autre utilisateur !');
+            return;
+        }
+        if (user === -2){
+            res.status(401).send('Le pseudo choisi est déjà utilisé par un autre utilisateur');
+            return;
+        }
+        if (user === -3){
+            res.status(401).send('Vous devez avoir 13 ans ou +');
+            return;
+        }
+        res.redirect('/pageConnexion.html');
+    }
+    else {
+        res.status(401).send('Veuillez renseigner 2 fois le même mot de passe');
+        return;
     }
 });
 
@@ -309,10 +325,6 @@ app.get('/pageSuppressionProfil.html', (req, res) => {
 
 app.get('/pageSuggestions.html', (req, res) => {
     let found = model.loadSuggestions(req.session.user);
-    if (found.length === 0){
-        res.status(401).send('Nous sommes désolés, nous n avons aucunes suggestions à vous faire, changez vos préférences sur votre profil en fonction de ce que nous disposons pour de meilleures suggestions');
-        return;
-    }
     res.render('pageSuggestions', (found));
 });
 
