@@ -2,13 +2,15 @@
 
 <!-- Suggestions -->
 <div id="film" class="album py-5 bg-light">
-    <p class="fs-1 text-center">Les Films</p>
+    <p class="fs-1 text-center">Vos suggestions</p>
+    <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
+    <br>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {{#results}}
             <div class="col">
                 <div class="card shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="500" xmlns="" src="{{image}}">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="500" xmlns="" src="{{image}}" onerror="this.src='/images/popcorn.png'">
 
                     <div class="card-body">
                         <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" class="card-text text-center"> {{nomFilm}} </h5>

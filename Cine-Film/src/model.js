@@ -253,7 +253,6 @@ exports.searchTriGenre = (genre) => {
 };
 
 exports.searchTriActeur = (acteur) => {
-    console.log(acteur);
     let results = db.prepare('SELECT idFilm FROM A_Joue WHERE nomActeur = ? GROUP BY idFilm').all(acteur.toUpperCase());
     if (results === undefined) return -1;
     return {

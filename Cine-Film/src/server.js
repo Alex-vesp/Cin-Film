@@ -135,7 +135,6 @@ app.post('/note', (req, res) =>{
     }
     let finalListe = [...new Set(liste)];
     let results = model.searchFilms(finalListe)
-    console.log(results);
     res.render('indexTri', (results));
 });
 
@@ -315,7 +314,6 @@ app.get('/pageSuggestions.html', (req, res) => {
         res.status(401).send('Nous sommes désolés, nous n avons aucunes suggestions à vous faire, changez vos préférences sur votre profil en fonction de ce que nous disposons pour de meilleures suggestions');
         return;
     }
-    console.log(found)
     res.render('pageSuggestions', (found));
 });
 
