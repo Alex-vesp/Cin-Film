@@ -381,22 +381,28 @@ exports.update_userMdp = function(id, mdp) {
 }
 
 exports.update_userInfos = function(id, pseudo, nom, prenom, email, date) {
-    try{
-        var existpseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND idUtilisateur != ?').get(pseudo, id);
-        if (existpseudo === undefined){
-            var existemail = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE mailUtilisateur = ? AND idUtilisateur != ?').get(email, id);
-            if (existemail === undefined) {
-                db.prepare('UPDATE Utilisateur SET pseudoUtilisateur = ?, mailUtilisateur = ?, nomUtilisateur = ?, prenomUtilisateur = ?, dateNaissance = ?  WHERE idUtilisateur = ?').run(pseudo, email, nom, prenom, date, id);
-                return;
-            }
-            console.log("email déja présent");
-            return;
+    if (pseudo.length === 0 ) pseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).pseudoUtilisateur;
+    console.log(pseudo);
+    if (nom.length === 0 ) nom = db.prepare('SELECT nomUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).nomUtilisateur;
+    console.log(nom);
+    if (prenom.length === 0 ) prenom = db.prepare('SELECT prenomUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).prenomUtilisateur;
+    console.log(prenom);
+    if (email.length === 0 ) email = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id).mailUtilisateur;
+    console.log(email);
+    if (date.length === 0 ) date = db.prepare('SELECT dateNaissance FROM Utilisateur WHERE idUtilisateur = ?').get(id).dateNaissance;
+    console.log(date);
+    let existpseudo = db.prepare('SELECT pseudoUtilisateur FROM Utilisateur WHERE pseudoUtilisateur = ? AND idUtilisateur != ?').get(pseudo, id);
+    if (existpseudo === undefined){
+        var existemail = db.prepare('SELECT mailUtilisateur FROM Utilisateur WHERE mailUtilisateur = ? AND idUtilisateur != ?').get(email, id);
+        if (existemail === undefined) {
+            db.prepare('UPDATE Utilisateur SET pseudoUtilisateur = ?, mailUtilisateur = ?, nomUtilisateur = ?, prenomUtilisateur = ?, dateNaissance = ?  WHERE idUtilisateur = ?').run(pseudo, email, nom, prenom, date, id);
+            return 0;
         }
-        console.log("pseudo déja présent");
+        return -1;
     }
-    catch (e){
-        console.log(e);
-    }
+    return -2;
+
+
 }
 
 exports.update_userPref = function(id, genre, acteur, realisateur) {

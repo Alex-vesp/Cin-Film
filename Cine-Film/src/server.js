@@ -26,15 +26,7 @@ app.set('model', 'model');
 
 
 
-// teste si l'utilisateur est authentifié
-function is_authenticated(req, res, next) {
-    if(req.session.user !== undefined) {
-        return next();
-    }
-    res.status(401).send('Authentification demandée');
-}
 
-// ajoute deux variables de session aux templates : authenticated et le nom de l'utilisateur
 app.use(function(req, res, next) {
     if(req.session.user !== undefined) {
         res.locals.authenticated = true;
@@ -124,25 +116,6 @@ app.post('/index.html', (req, res) =>{
     res.render('indexTri', (results));
 });
 
-/*app.post('/note', (req, res) =>{
-    let liste = [];
-    if (req.body.note !== "Tous ..."){
-        let resultNote = model.searchTriNote(req.body.note);
-        if (resultNote !== -1){
-            for (let i = 0; i < resultNote.results.length; i++){
-                liste.push(resultNote.results[i].idFilm);
-            }
-        }
-    }
-    if (liste.length === 0){
-        res.status(401).send('Veuillez renseigner une note si vous voulez trier par note');
-    }
-    let finalListe = [...new Set(liste)];
-    let results = model.searchFilms(finalListe)
-    res.render('indexTri', (results));
-});*/
-
-
 app.post('/login', (req, res) => {
     console.log("login");
     const user = model.login(req.body.user, req.body.password);
@@ -182,8 +155,16 @@ app.post('/pageInscription.html', (req, res) => {
 });
 
 app.post('/pageModifierProfil.html/1', (req, res) => {
-    model.update_userInfos(req.session.user, req.body.pseudo, req.body.nom, req.body.prenom,  req.body.mail, req.body.dateN);
-    res.redirect('/pageModifierProfil.html');
+    let update = model.update_userInfos(req.session.user, req.body.pseudo, req.body.nom, req.body.prenom,  req.body.mail, req.body.dateN);
+    if (update === -1){
+        res.status(401).send('L email choisi est déjà utilisé par un autre utilisateur');
+    }
+    if (update === -2){
+        res.status(401).send('Le pseudo choisi est déjà utilisé par un autre utilisateur');
+    }
+    if (update === 0){
+        res.redirect('/pageModifierProfil.html');
+    }
 });
 
 
