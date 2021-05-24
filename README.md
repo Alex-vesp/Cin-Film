@@ -10,9 +10,8 @@ CinéFilm, site communautaire de gestion de films.
 
 1. [Description](#description)
 2. [Fabriqué avec](#Fabriqué-avec)
-3. [Fonctionnalités futures](#Fonctionnalités-futures)
-4. [Auteurs](#auteurs)
-5. [Github](#Github)
+3. [Auteurs](#auteurs)
+4. [Github](#Github)
 
 ***
 
@@ -42,11 +41,6 @@ Une partie suggestion permet de suggérer aux utilisateurs des films selon leurs
 * [NodeJS](https://nodejs.org/en/) - Plateforme asynchrone 
 * [Express](https://expressjs.com/fr/) - Framework applications web
 * [Better-sqlite3](https://www.npmjs.com/package/better-sqlite3) - Système de base de données
-
-***
-
-## Fonctionnalités futures
-
 
 
 ***
