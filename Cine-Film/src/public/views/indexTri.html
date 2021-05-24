@@ -1,36 +1,11 @@
 {{> header}}
 
-<div id="tri" class="container px-4 " style="margin-top: 5px">
-    <nav class="navbar navbar-expand-lg navbar ">
-        <div class="container-fluid">
-            <p class="navbar-brand">Trier</p>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form method="post" action="/note">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" style="margin-left: 25px">
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="TrieNote">Note</label>
-                                <select name="note" class="form-select-focus-1200" id="TrieNote">
-                                    <option selected>Tous ... </option>
-                                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-                                    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="nav-item" style="margin-left: 25px">
-                            <button style="height: 70%" onclick="" type="submit" class="btn btn-sm btn-outline-dark">Valider</button>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </div>
-    </nav>
-</div>
 
 <!-- Index-->
 <div id="film" class="album py-5 bg-light">
-    <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
     <p class="fs-1 text-center">Résultat de votre tri :</p>
+    <p class="fs-1 text-center"><a id="back" href="javascript:history.go(-1)" class="btn btn-sm btn-outline-dark">Retour</a></p>
+    <br>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {{#results}}

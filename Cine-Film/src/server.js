@@ -107,20 +107,24 @@ app.post('/index.html', (req, res) =>{
             }
         }
     }
+    let finalListe;
     if (req.body.note !== "Tous ..."){
-        let resultNote = model.searchTriNote(req.body.note);
-        if (resultNote !== -1){
-            for (let i = 0; i < resultNote.results.length; i++){
-                liste.push(resultNote.results[i].idFilm);
-            }
+        let search = model.searchTriNote(req.body.note, liste);
+        if (search === -1){
+            finalListe = [...new Set(liste)];
+        }
+        else {
+            finalListe =  [...new Set(search.listeResults)];
         }
     }
-    let finalListe = [...new Set(liste)];
-    let results = model.searchFilms(finalListe)
+    else{
+        finalListe = [...new Set(liste)];
+    }
+    let results = model.searchFilms(finalListe);
     res.render('indexTri', (results));
 });
 
-app.post('/note', (req, res) =>{
+/*app.post('/note', (req, res) =>{
     let liste = [];
     if (req.body.note !== "Tous ..."){
         let resultNote = model.searchTriNote(req.body.note);
@@ -136,7 +140,7 @@ app.post('/note', (req, res) =>{
     let finalListe = [...new Set(liste)];
     let results = model.searchFilms(finalListe)
     res.render('indexTri', (results));
-});
+});*/
 
 
 app.post('/login', (req, res) => {

@@ -287,11 +287,18 @@ exports.searchInfTriAnnee = (annee) => {
     }
 };
 
-exports.searchTriNote = (note) => {
-    let results = db.prepare('SELECT idFilm FROM Film WHERE noteMoyenne >= ? GROUP BY idFilm').all(note);
-    if (results === undefined) return -1;
+exports.searchTriNote = (note, liste) => {
+    let listeResults = [];
+    for (let i=0 ; i < liste.length ; i++){
+        let search = db.prepare('SELECT idFilm FROM Film WHERE noteMoyenne >= ? AND idFilm = ? GROUP BY idFilm').get(note, liste[i]);
+        if (search !== undefined){
+            listeResults.push(search.idFilm);
+        }
+    }
+
+    if (listeResults.length === 0) return -1;
     return {
-        results : results,
+        listeResults : listeResults ,
     }
 };
 
