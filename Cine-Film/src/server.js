@@ -1,7 +1,8 @@
 "use strict"
 /* Serveur pour le site de films */
-var express = require('express');
-var mustache = require('mustache-express');
+let express = require('express');
+let mustache = require('mustache-express');
+const crypto = require('crypto');
 
 
 var model = require('./model');
@@ -17,14 +18,18 @@ app.use(cookieSession({
     secret: 'mot-de-passe-du-cookie',
 }));
 
+const getHashedPassword = (password) => {
+    const sha256 = crypto.createHash('sha256');
+    const hash = sha256.update(password).digest('base64');
+    return hash;
+}
+
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', 'public/views');
 app.set('model', 'model');
-
-
 
 
 app.use(function(req, res, next) {
@@ -117,7 +122,7 @@ app.post('/index.html', (req, res) =>{
 });
 
 app.post('/login', (req, res) => {
-    const user = model.login(req.body.user, req.body.password);
+    const user = model.login(req.body.user, getHashedPassword(req.body.password));
     if(user !== -1) {
         req.session.user = user;
         req.session.name = req.body.user;
@@ -152,7 +157,7 @@ app.post('/pageInscription.html', (req, res) => {
             res.status(401).send('Un des champs requis est vide');
             return;
         }
-        let user = model.new_user(req.body.pseudo, req.body.mail, req.body.mdp, req.body.nom, req.body.prenom, req.body.dateN, nomGenre, idActeur, idReal);
+        let user = model.new_user(req.body.pseudo, req.body.mail, getHashedPassword(req.body.mdp), req.body.nom, req.body.prenom, req.body.dateN, nomGenre, idActeur, idReal);
         if (user === -1) {
             res.status(401).send('L adresse mail est déjà utilisée par un autre utilisateur !');
             return;
@@ -200,8 +205,8 @@ app.post('/pageModifierProfil.html/3', (req, res) => {
 app.post('/pageModifierProfil.html/2', (req, res) => {
     if (req.body.mdpactuel === req.session.mdp){
         if (req.body.nvxmdp === req.body.nvxmdpconfirm){
-            model.update_userMdp(req.session.user, req.body.nvxmdp);
-            req.session.mdp = req.body.nvxmdp;
+            model.update_userMdp(req.session.user, getHashedPassword(req.body.nvxmdp));
+            req.session.mdp = getHashedPassword(req.body.nvxmdp);
             res.redirect('/pageModifierProfil.html');
         }
         res.status(401).send("les 2 mdp de confirmation ne sont pas les memes");
