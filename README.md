@@ -9,9 +9,10 @@ CinéFilm, site communautaire de gestion de films.
 ## Table des matières
 
 1. [Description](#description)
-2. [Fabriqué avec](#Fabriqué-avec)
-3. [Auteurs](#auteurs)
-4. [Github](#Github)
+2. [Configuration](#Configuration)
+3. [Fabriqué avec](#Fabriqué-avec)
+4. [Auteurs](#auteurs)
+5. [Github](#Github)
 
 ***
 
@@ -33,6 +34,21 @@ Ceux-ci peuvent aussi créer des listes de films avec des noms afin de pouvoir r
 #### Suggestions
 
 Une partie suggestion permet de suggérer aux utilisateurs des films selon leurs préférences de genre, d'acteurs et/ou de réalisateurs.
+
+***
+
+## Configuration
+
+Afin de lancer le site en localhost, il faut installer les modules NodeJs, Express et Sqlite.
+Pour cela, dans le terminal du projet, utiliser la commande:
+```bash
+npm install
+```
+Attendez la fin de l'installation puis enfin lancez le site avec la commande
+```bash
+node server.js
+```
+Vous pouvez enfin cliquer sur le lien localhost affiché et utiliser le site comme vous le souhaitez!
 
 ***
 
