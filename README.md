@@ -37,7 +37,7 @@ Une partie suggestion permet de suggérer aux utilisateurs des films selon leurs
 
 ***
 
-##Configuration
+## Configuration
 
 Afin de lancer le site en localhost, il faut installer les modules NodeJs, Express et Sqlite.
 Pour cela, dans le terminal du projet, utiliser la commande:
