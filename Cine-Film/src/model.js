@@ -145,7 +145,10 @@ exports.supprimerFilm = function(id) {
 }
 
 exports.supprimerUtilisateur = function(id) {
-    db.prepare('DELETE FROM Utilisateur WHERE id = ?').run(id);
+    if (db.prepare('SELECT idUtilisateur FROM Utilisateur WHERE idUtilisateur = ?').get(id) === undefined){
+        return -1;
+    }
+    db.prepare('DELETE FROM Utilisateur WHERE idUtilisateur = ?').run(id);
 }
 
 

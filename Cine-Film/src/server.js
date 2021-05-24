@@ -186,6 +186,16 @@ app.post('/pageModifierProfil.html/2', (req, res) => {
     res.redirect('/pageModifierProfil.html');
 });
 
+app.post('/pageSuppressionProfil.html', (req, res) =>{
+    if (model.supprimerUtilisateur(req.session.user) === -1){
+        res.status(401).send("Il n'est pas possible de supprimer un utilisateur qui n'existe pas")
+    }
+    model.supprimerUtilisateur(req.session.user)
+    req.session = null;
+    res.redirect('/index.html')
+})
+
+
 
 app.post('/pageFilm.html/:id', (req, res) => {
     if (req.body.ajoutListe.length === 0){
@@ -291,6 +301,10 @@ app.get('/pageFilmsListe.html/:nomlist', (req, res) => {
 app.get('/pageProfil.html', (req, res) => {
     var found = model.searchProfil(req.session.user);
     res.render('pageProfil', (found));
+});
+
+app.get('/pageSuppressionProfil.html', (req, res) => {
+    res.render('pageSuppressionProfil.html');
 });
 
 app.get('/pageSuggestions.html', (req, res) => {
